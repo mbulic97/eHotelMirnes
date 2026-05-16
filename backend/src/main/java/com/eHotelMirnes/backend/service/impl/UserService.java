@@ -18,6 +18,9 @@ public class UserService implements IUserService{
     private UserRepository userRepository;
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
     @Override
     public Response register(User user) {
@@ -31,9 +34,11 @@ public class UserService implements IUserService{
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             User savedUser = userRepository.save(user);
+            emailService.sendWelcomeEmail(savedUser);
             UserDTO userDTO = Utils.mapUserEntityToUserDTO(savedUser);
             response.setStatusCode(200);
             response.setUser(userDTO);
+
         } catch (OurException e) {
             response.setStatusCode(400);
             response.setMessage(e.getMessage());
