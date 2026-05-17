@@ -1,4 +1,4 @@
-package com.eHotelMirnes.backend.service.impl;
+package com.eHotelMirnes.backend.service;
 
 import com.eHotelMirnes.backend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
