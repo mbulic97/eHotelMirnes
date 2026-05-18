@@ -13,6 +13,7 @@ import com.eHotelMirnes.backend.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -74,14 +75,18 @@ public class UserService implements IUserService{
             response.setRole(user.getRole());
             response.setExpirationTime("7 Days");
             response.setMessage("Successful");
-            log.debug("User login successful: {}" + loginRequest.getEmail());
-        } catch(OurException e){
+            log.info("User login successful: " + loginRequest.getEmail());
+        } catch(BadCredentialsException e){
+            response.setStatusCode(401);
+            response.setMessage("Invalid email or password");
+        } catch (OurException e) {
             response.setStatusCode(404);
             response.setMessage(e.getMessage());
         } catch (Exception e){
-            log.debug("Status code: 500, User login");
+            log.info("Status code: 500, User login");
             response.setStatusCode(500);
-            response.setMessage("Error Occurred During User Login" + e.getMessage());
+
+            response.setMessage("Something went wrong. Please try again.");
         }
         return response;
     }
