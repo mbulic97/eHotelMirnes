@@ -1,0 +1,62 @@
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  
+}
+
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    justify-content: flex-start;
+}
+
+.header-banner {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+
+}
+
+.header-image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+
+}
+
+.header-banner {
+    position: relative;
+    height: 500px;
+}
+
+.header-banner h1 {
+    font-size: 50px;
+    color: #f8f3f3;
+}
+
+.header-banner h3 {
+    color: #f8f3f3;
+    font-size: 30px;
+}
+
+.home-services {
+    font-weight: 800;
+    
+    text-align: center;
+    margin: 5px auto 30px auto;
+}
+
+.eHotelMirnes-color {
+    color: #003b95;
+}
+
+
+
+

@@ -1,0 +1,32 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding-left: 10px;
+    padding-right: 10px;
+
+}
+li{
+    display: inline;
+    margin-left: 30px;
+    
+}
+.navbar-brand a{
+    font-size: 24px;
+    font-weight: bold;
+    color: #003b95;
+    text-decoration: none;
+}
+.navbar-ul li a {
+    text-decoration: none;
+    color: #666;
+    transition: color 0.5s;
+}
+
+.navbar-ul li a:hover {
+    color: #003b95;
+}
+
+.navbar-ul li a.active {
+    color: #003b95;
+}

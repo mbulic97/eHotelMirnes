@@ -1,17 +1,24 @@
 import './App.css';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import RegisterPage from './component/auth/RegisterPage';
 import LoginPage from './component/auth/LoginPage';
+import Navbar from './component/common/Navbar';
+import HomePage from './component/home/HomePage';
+import Footer from './component/common/Footer';
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
+        <Navbar />
         <div className='content'>
           <Routes>
+            <Route path="/" element={<Navigate to="/home" />} />
+            <Route path="/home" element={<HomePage />} />
             <Route path='/register' element={<RegisterPage />}></Route>
             <Route path='/login' element={<LoginPage />}></Route>
           </Routes>
         </div>
+        <Footer />
       </div>
     </BrowserRouter>
   );
