@@ -6,6 +6,7 @@ import ApiService from '../../service/ApiService'
 function Navbar(){
     const isAuthenticated = ApiService.isAuthenticated();
     const navigate = useNavigate();
+    const isUser = ApiService.isUser();
 
     const handleLogout = () =>{
         const isLogout = window.confirm('Are you sure you want to logout this user?');
@@ -23,6 +24,8 @@ function Navbar(){
                 <li><NavLink to="/home" className={({isActive}) => isActive ? "active" : ""}>Home</NavLink></li>
                 <li><NavLink to="/rooms" className={({isActive}) => isActive ? "active" : ""}>Rooms</NavLink></li>
                 <li><NavLink to="/find-booking" className={({isActive}) => isActive ? "active" : ""}>Find My Booking</NavLink></li>
+
+                {isUser && <li><NavLink to="/profile" className={({isActive}) => isActive ? "active" : ""}>Profile</NavLink></li>}
 
                 {!isAuthenticated && <li><NavLink to="/login" className={({isActive}) => isActive ? "active" : ""}>Login</NavLink></li>}
                 {!isAuthenticated && <li><NavLink to="/register" className={({isActive}) => isActive ? "active" : ""}>Register</NavLink></li>}

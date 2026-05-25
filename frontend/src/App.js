@@ -5,6 +5,7 @@ import LoginPage from './component/auth/LoginPage';
 import Navbar from './component/common/Navbar';
 import HomePage from './component/home/HomePage';
 import Footer from './component/common/Footer';
+import ProfilePage from './component/profile/ProfilePage';
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +17,8 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path='/register' element={<RegisterPage />}></Route>
             <Route path='/login' element={<LoginPage />}></Route>
+            <Route path='/profile' element={<ProfilePage />}></Route>
+
           </Routes>
         </div>
         <Footer />

@@ -6,6 +6,8 @@ export default class ApiService {
 
     static getHeader() {
         const token = localStorage.getItem("token");
+        console.log("Token exists:", !!token);
+
         return {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
@@ -30,4 +32,24 @@ export default class ApiService {
         const token = localStorage.getItem('role')
         return !!token
     }
+
+    static isUser(){
+        const role = localStorage.getItem('role')
+        return role === 'USER'
+    }
+
+    static async getUserProfile() {
+        const response = await axios.get(`${this.BASE_URL}/users/get-logged-in-profile-info`, {
+            headers: this.getHeader()
+        })
+        return response.data
+    }
+
+    static async getUserBookings(userId) {
+        const response = await axios.get(`${this.BASE_URL}/users/get-user-bookings/${userId}`, {
+            headers: this.getHeader()
+        })
+        return response.data
+    }
+
 }
