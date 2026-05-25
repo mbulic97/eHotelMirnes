@@ -7,4 +7,8 @@ import com.eHotelMirnes.backend.entity.User;
 public interface IUserService {
     Response register(User user);
     Response login(LoginRequest loginRequest);
+
+    Response getMyInfo(String email);
+
+    Response getUserById(String userId);
 }
