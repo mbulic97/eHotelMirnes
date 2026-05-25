@@ -1,0 +1,31 @@
+.auth-container {
+    max-width: 400px;
+    padding: 20px;
+    border: 0.5px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.auth-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #003b95;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+.register-link {
+    margin-top: 20px;
+    font-size: 13px;
+}
+.register-link a {
+    color: #003b95;
+    text-decoration: none;
+}

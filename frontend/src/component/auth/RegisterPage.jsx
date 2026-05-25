@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ApiService from '../../service/ApiService';
 import { useNavigate } from 'react-router-dom';
-
+import './RegisterPage.css'
 function RegisterPage() {
     const navigate = useNavigate();
 
