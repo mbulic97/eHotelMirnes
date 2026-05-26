@@ -11,3 +11,23 @@
     color: #999;
     font-size: 13px;
 }
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.footer-social a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-social a:hover {
+    color: #003b95;
+}
