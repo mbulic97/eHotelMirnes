@@ -1,7 +1,7 @@
 import { useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom";
 import ApiService from "../../service/ApiService";
-
+import './ProfilePage.css'
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
@@ -25,12 +25,20 @@ const ProfilePage = () => {
         fetchUserProfile();
     },[]);
 
+    const handleLogout = () => {
+        const isLogout = window.confirm('Are you sure you want to logout this user?');
+        if(isLogout){
+            ApiService.logout();
+            navigate('/home');
+        }
+    }
+
     return (
         <div className="profile-page">
             {user && <h2>Welcome, {user.name}</h2>}
             <div className="profile-actions">
                 <button className="edit-profile-button" >Edit Profile</button>
-                <button className="logout-button" >Logout</button>
+                <button className="logout-button" onClick={handleLogout}>Logout</button>
             </div>
             {error && <p className="error-message">{error}</p>}
             {user && (

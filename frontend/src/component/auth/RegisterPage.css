@@ -21,8 +21,14 @@ button[type="submit"] {
     cursor: pointer;
     font-weight: 800;
     border-radius: 10px;
+    transition: background-color 0.3s;
+
 }
 
 button[type="submit"]:hover {
-    background-color: rgb(37, 110, 188)
+    background-color: rgb(37, 110, 188);
+}
+
+button[type="submit"]:active {
+    transform: scale(0.96);
 }
