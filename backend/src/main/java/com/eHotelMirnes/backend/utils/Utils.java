@@ -6,6 +6,8 @@ import com.eHotelMirnes.backend.entity.Room;
 import com.eHotelMirnes.backend.entity.User;
 
 import java.security.SecureRandom;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Utils {
     private static final String ALPHANUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -39,5 +41,9 @@ public class Utils {
         roomDTO.setRoomPhotoUrl(room.getRoomPhotoUrl());
         roomDTO.setRoomDescription(room.getRoomDescription());
         return roomDTO;
+    }
+
+    public static List<RoomDTO> mapRoomListEntityToRoomListDTO(List<Room> roomList){
+        return roomList.stream().map(Utils::mapRoomEntityToRoomDTO).collect(Collectors.toList());
     }
 }
