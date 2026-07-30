@@ -1,6 +1,8 @@
 package com.eHotelMirnes.backend.utils;
 
+import com.eHotelMirnes.backend.dto.RoomDTO;
 import com.eHotelMirnes.backend.dto.UserDTO;
+import com.eHotelMirnes.backend.entity.Room;
 import com.eHotelMirnes.backend.entity.User;
 
 import java.security.SecureRandom;
@@ -27,5 +29,15 @@ public class Utils {
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setRole(user.getRole());
         return userDTO;
+    }
+
+    public static RoomDTO mapRoomEntityToRoomDTO(Room room) {
+        RoomDTO roomDTO = new RoomDTO();
+        roomDTO.setId(room.getId());
+        roomDTO.setRoomType(room.getRoomType());
+        roomDTO.setRoomPrice(room.getRoomPrice());
+        roomDTO.setRoomPhotoUrl(room.getRoomPhotoUrl());
+        roomDTO.setRoomDescription(room.getRoomDescription());
+        return roomDTO;
     }
 }
