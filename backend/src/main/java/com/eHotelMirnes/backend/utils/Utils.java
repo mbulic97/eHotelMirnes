@@ -46,4 +46,8 @@ public class Utils {
     public static List<RoomDTO> mapRoomListEntityToRoomListDTO(List<Room> roomList){
         return roomList.stream().map(Utils::mapRoomEntityToRoomDTO).collect(Collectors.toList());
     }
+
+    public static List<UserDTO> mapUserListEntityToUserListDTO(List<User> userList) {
+        return userList.stream().map(Utils::mapUserEntityToUserDTO).collect(Collectors.toList());
+    }
 }

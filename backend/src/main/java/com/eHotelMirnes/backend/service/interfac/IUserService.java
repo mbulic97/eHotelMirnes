@@ -13,4 +13,6 @@ public interface IUserService {
     Response getUserById(String userId);
 
     Response deleteUser(String userId);
+
+    Response getAllUsers();
 }

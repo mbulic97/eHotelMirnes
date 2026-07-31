@@ -17,6 +17,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Slf4j
 @Service
 public class UserService implements IUserService{
@@ -147,6 +150,20 @@ public class UserService implements IUserService{
         } catch (Exception e){
             response.setStatusCode(500);
             response.setMessage("Error deleting user " + e.getMessage());
+        }
+        return response;
+    }
+    public Response getAllUsers() {
+        Response response = new Response();
+        try {
+            List<User> userList = userRepository.findAll();
+            List<UserDTO> userDTOList = Utils.mapUserListEntityToUserListDTO(userList);
+            response.setStatusCode(200);
+            response.setMessage("successful");
+            response.setUserList(userDTOList);
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error getting all users" + e.getMessage());
         }
         return response;
     }

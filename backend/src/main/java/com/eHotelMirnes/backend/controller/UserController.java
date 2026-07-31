@@ -34,4 +34,11 @@ public class UserController {
         Response response = userService.deleteUser(userId);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
+
+    @GetMapping("/all")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Response> getAllUsers() {
+        Response response = userService.getAllUsers();
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
 }
