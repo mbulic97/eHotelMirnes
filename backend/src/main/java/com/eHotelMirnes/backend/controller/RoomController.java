@@ -2,6 +2,7 @@ package com.eHotelMirnes.backend.controller;
 
 import com.eHotelMirnes.backend.dto.Response;
 import com.eHotelMirnes.backend.service.interfac.IRoomService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
 import java.util.List;
-
+@Slf4j
 @RestController
 @RequestMapping("/rooms")
 public class RoomController {
@@ -31,10 +32,10 @@ public class RoomController {
             @RequestParam(value = "roomPrice", required = false) BigDecimal roomPrice,
             @RequestParam(value = "roomDescription", required = false) String roomDescription
     ) {
-        System.out.println("PHOTO: " + photo);
-        System.out.println("ROOM TYPE: [" + roomType + "]");
-        System.out.println("ROOM PRICE: [" + roomPrice + "]");
-        System.out.println("DESCRIPTION: [" + roomDescription + "]");
+        log.info("PHOTO: {}", photo);
+        log.info("ROOM TYPE: {}", roomType);
+        log.info("ROOM PRICE: {}", roomPrice);
+        log.info("DESCRIPTION: {}", roomDescription);
         if (photo == null || photo.isEmpty() || roomType == null || roomType.isBlank() || roomPrice == null ) {
             Response response = new Response();
             response.setStatusCode(400);

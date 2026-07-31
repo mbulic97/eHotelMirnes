@@ -8,12 +8,13 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.Region;
 import com.eHotelMirnes.backend.exception.OurException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
-
+@Slf4j
 @Service
 public class AwsS3Service {
 
@@ -46,7 +47,7 @@ public class AwsS3Service {
             s3Client.putObject(putObjectRequest);
             s3LocationImage = "https://"+bucketName+ ".s3.amazonaws.com/"+s3Filename;
         } catch (Exception e){
-            e.printStackTrace();
+            log.error("Failed to upload image {} to S3 bucket {}", photo.getOriginalFilename(), bucketName, e);
             throw new OurException("Unable to upload image to s3 bucket" + e.getMessage());
         }
         return s3LocationImage;

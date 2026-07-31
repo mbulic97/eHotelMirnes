@@ -4,12 +4,10 @@ import com.eHotelMirnes.backend.dto.Response;
 import com.eHotelMirnes.backend.service.interfac.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -30,5 +28,10 @@ public class UserController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-
+    @DeleteMapping("/delete/{userId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Response> deleteUser(@PathVariable("userId") String userId){
+        Response response = userService.deleteUser(userId);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
 }

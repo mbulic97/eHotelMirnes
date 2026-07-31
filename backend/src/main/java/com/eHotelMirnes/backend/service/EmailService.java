@@ -1,11 +1,14 @@
 package com.eHotelMirnes.backend.service;
 
 import com.eHotelMirnes.backend.entity.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+
+@Slf4j
 @Service
 public class EmailService {
     @Autowired
@@ -22,7 +25,7 @@ public class EmailService {
                     "Sincerely,\neHotelMIrnes team");
             mailSender.send(message);
         } catch (Exception e) {
-            System.err.println("Error sending email: " + e.getMessage());
+            log.error("Error sending email to {}", user.getUsername(), e);
 
         }
 
