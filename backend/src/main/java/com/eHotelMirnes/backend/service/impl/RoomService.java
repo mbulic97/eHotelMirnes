@@ -3,6 +3,7 @@ package com.eHotelMirnes.backend.service.impl;
 import com.eHotelMirnes.backend.dto.Response;
 import com.eHotelMirnes.backend.dto.RoomDTO;
 import com.eHotelMirnes.backend.entity.Room;
+import com.eHotelMirnes.backend.exception.OurException;
 import com.eHotelMirnes.backend.repo.RoomRepository;
 import com.eHotelMirnes.backend.service.AwsS3Service;
 import com.eHotelMirnes.backend.service.interfac.IRoomService;
@@ -61,14 +62,28 @@ public class RoomService implements IRoomService {
             response.setRoomList(roomDTOList);
         } catch (Exception e) {
             response.setStatusCode(500);
-            response.setMessage("Error saving a room " + e.getMessage());
+            response.setMessage("Error getting a room " + e.getMessage());
         }
         return response;
     }
 
     @Override
     public Response deleteRoom(Long roomId) {
-        return null;
+        Response response = new Response();
+
+        try {
+            roomRepository.findById(roomId).orElseThrow(() -> new OurException("Room Not Found"));
+            roomRepository.deleteById(roomId);
+            response.setStatusCode(200);
+            response.setMessage("successful");
+        } catch (OurException e){
+            response.setStatusCode(404);
+            response.setMessage(e.getMessage());
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error deleting a room " + e.getMessage());
+        }
+        return response;
     }
 
     @Override

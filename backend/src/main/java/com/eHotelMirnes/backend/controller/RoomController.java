@@ -58,4 +58,12 @@ public class RoomController {
     public List<String> getRoomTypes() {
         return roomService.getAllRoomTypes();
     }
+
+    @DeleteMapping("/delete/{roomId}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Response> deleteRoom(@PathVariable Long roomId){
+        Response response = roomService.deleteRoom(roomId);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
 }
