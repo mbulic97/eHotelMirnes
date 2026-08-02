@@ -1,6 +1,7 @@
 package com.eHotelMirnes.backend.controller;
 
 import com.eHotelMirnes.backend.dto.Response;
+import com.eHotelMirnes.backend.entity.User;
 import com.eHotelMirnes.backend.service.interfac.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,24 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> getAllUsers() {
         Response response = userService.getAllUsers();
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @PutMapping("update/{userId}")
+    public ResponseEntity<Response> updateUser(
+            @PathVariable Long userId,
+            @RequestParam(value = "name",required = false) String name,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String phoneNumber
+    ) {
+        User user = new User();
+        user.setId(userId);
+        user.setName(name);
+        user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
+
+        Response response = userService.updateUser(user);
+
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }

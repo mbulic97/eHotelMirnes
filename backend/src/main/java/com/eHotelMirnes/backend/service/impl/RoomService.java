@@ -62,7 +62,7 @@ public class RoomService implements IRoomService {
             response.setRoomList(roomDTOList);
         } catch (Exception e) {
             response.setStatusCode(500);
-            response.setMessage("Error getting a room " + e.getMessage());
+            response.setMessage("Error getting all rooms " + e.getMessage());
         }
         return response;
     }
@@ -87,8 +87,32 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public Response updateRoom(Long roomId, String roomType, BigDecimal roomPrice, MultipartFile photo) {
-        return null;
+    public Response updateRoom(Long roomId, String description, String roomType, BigDecimal roomPrice, MultipartFile photo) {
+        Response response = new Response();
+
+        try {
+            Room room = roomRepository.findById(roomId).orElseThrow(() -> new OurException("Room Not Found"));
+            if(roomType != null) room.setRoomType(roomType);
+            if(roomPrice != null) room.setRoomPrice(roomPrice);
+            if(description != null) room.setRoomDescription(description);
+            if(photo != null && !photo.isEmpty()){
+                String imageUrl = awsS3Service.saveImageToS3(photo);
+                room.setRoomPhotoUrl(imageUrl);
+            }
+            Room updatedRoom = roomRepository.save(room);
+            RoomDTO roomDTO = Utils.mapRoomEntityToRoomDTO(updatedRoom);
+
+            response.setStatusCode(200);
+            response.setMessage("successful");
+            response.setRoom(roomDTO);
+        } catch (OurException e) {
+            response.setStatusCode(404);
+            response.setMessage(e.getMessage());
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error updating room " + e.getMessage());
+        }
+        return response;
     }
 
     @Override

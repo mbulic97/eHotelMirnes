@@ -110,7 +110,7 @@ public class UserService implements IUserService{
             response.setMessage(e.getMessage());
         } catch (Exception e){
             response.setStatusCode(500);
-            response.setMessage("Error getting all users " + e.getMessage());
+            response.setMessage("Error getting user info " + e.getMessage());
         }
         return response;
     }
@@ -133,7 +133,7 @@ public class UserService implements IUserService{
         } catch (Exception e) {
 
             response.setStatusCode(500);
-            response.setMessage("Error getting all users " + e.getMessage());
+            response.setMessage("Error getting user by id " + e.getMessage());
         }
         return response;
     }
@@ -164,6 +164,39 @@ public class UserService implements IUserService{
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Error getting all users" + e.getMessage());
+        }
+        return response;
+    }
+    @Override
+    public  Response updateUser(User user){
+        Response response = new Response();
+
+        try {
+            User existingUser = userRepository.findById(user.getId()).orElseThrow(()-> new OurException("User Not Found"));
+
+            if (user.getName() != null && !user.getName().isBlank()) {
+                existingUser.setName(user.getName());
+            }
+            if (user.getEmail() != null && !user.getEmail().isBlank()) {
+                existingUser.setEmail(user.getEmail());
+            }
+            if (user.getPhoneNumber() != null && !user.getPhoneNumber().isBlank()) {
+                existingUser.setPhoneNumber(user.getPhoneNumber());
+            }
+
+            User updatedUser = userRepository.save(existingUser);
+
+            UserDTO userDTO = Utils.mapUserEntityToUserDTO(updatedUser);
+
+            response.setStatusCode(200);
+            response.setMessage("User updated successfully");
+            response.setUser(userDTO);
+        } catch (OurException e) {
+            response.setStatusCode(404);
+            response.setMessage(e.getMessage());
+        } catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error updating user " + e.getMessage());
         }
         return response;
     }

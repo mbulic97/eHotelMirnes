@@ -15,4 +15,5 @@ public interface IUserService {
     Response deleteUser(String userId);
 
     Response getAllUsers();
+    Response updateUser(User user);
 }
