@@ -23,8 +23,8 @@ export default class ApiService {
         const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails)
         return response.data
     }
-    
-    static logout(){
+
+    static logout() {
         localStorage.removeItem('token')
         localStorage.removeItem('role')
     }
@@ -33,9 +33,14 @@ export default class ApiService {
         return !!token
     }
 
-    static isUser(){
+    static isUser() {
         const role = localStorage.getItem('role')
         return role === 'USER'
+    }
+
+    static isAdmin() {
+        const role = localStorage.getItem('role')
+        return role === 'ADMIN'
     }
 
     static async getUserProfile() {
@@ -51,5 +56,15 @@ export default class ApiService {
         })
         return response.data
     }
+
+    static async getAllRooms() {
+        const result = await axios.get(`${this.BASE_URL}/rooms/all`)
+        return result.data
+    }
+    static async getRoomTypes() {
+        const response = await axios.get(`${this.BASE_URL}/rooms/types`)
+        return response.data
+    }
+
 
 }

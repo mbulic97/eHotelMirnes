@@ -1,0 +1,45 @@
+.admin-page {
+    max-width: 800px;
+   
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-message {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #003b95;
+
+}
+
+.admin-actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+.admin-button {
+    color: #fff;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #003b95;
+}
+
+.admin-button:hover {
+    background-color: rgb(37, 110, 188);
+}
+
+.admin-button:active {
+    transform: scale(0.96);
+}
