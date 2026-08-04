@@ -8,6 +8,7 @@ import Footer from './component/common/Footer';
 import ProfilePage from './component/profile/ProfilePage';
 import AllRoomsPage from './component/booking_rooms/AllRoomsPage';
 import AdminPage from './component/admin/AdminPage';
+import ManageUsersPage from './component/admin/ManageUsersPage';
 function App() {
   return (
     <BrowserRouter>
@@ -22,8 +23,7 @@ function App() {
             <Route path='/rooms' element={<AllRoomsPage/>}></Route>
             <Route path='/profile' element={<ProfilePage />}></Route>
             <Route path='/admin' element={<AdminPage/>}></Route>
-
-
+            <Route path='/admin/manage-users' element={<ManageUsersPage/>}></Route>
           </Routes>
         </div>
         <Footer />
