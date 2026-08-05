@@ -9,6 +9,7 @@ import ProfilePage from './component/profile/ProfilePage';
 import AllRoomsPage from './component/booking_rooms/AllRoomsPage';
 import AdminPage from './component/admin/AdminPage';
 import ManageUsersPage from './component/admin/ManageUsersPage';
+import ManageRoomsPage from './component/admin/ManageRoomsPage';
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +25,8 @@ function App() {
             <Route path='/profile' element={<ProfilePage />}></Route>
             <Route path='/admin' element={<AdminPage/>}></Route>
             <Route path='/admin/manage-users' element={<ManageUsersPage/>}></Route>
+            <Route path='/admin/manage-rooms' element={<ManageRoomsPage/>}></Route>
+
           </Routes>
         </div>
         <Footer />

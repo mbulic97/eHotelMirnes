@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import ApiService from '../../service/ApiService'
-import Pagination from '../common/Pagination';
+import ApiService from '../../service/ApiService';
+import { Navigate } from 'react-router-dom';
 import RoomResult from '../common/RoomResult';
+import Pagination from '../common/Pagination';
 
-const AllRoomsPage = () => {
+const ManageRoomsPage = () => {
     const [rooms, setRooms] = useState([]);
     const [filteredRooms, setFilteredRooms] = useState([]);
     const [roomTypes, setRoomTypes] = useState([]);
     const [selectedRoomType, setSelectedRoomType] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [roomsPerPage] = useState(5);
-    const [error, setError] = useState(null);
-
-
-
 
     useEffect(() => {
         const fetchRooms = async () => {
@@ -27,8 +24,6 @@ const AllRoomsPage = () => {
                 setFilteredRooms(allRooms);
             } catch (error) {
                 console.error("ERROR:", error);
-                setError(error.response?.data?.message || error.message);
-
             }
         };
         const fetchRoomTypes = async () => {
@@ -68,25 +63,24 @@ const AllRoomsPage = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-
-
-        <div>
-            <h2>All Rooms</h2>
-            <div className='all-room-filter-div'>
-                <label>Filter by Room Type:</label>
-                <select value={selectedRoomType} onChange={handleRoomTypeChange}>
-                    <option value="">All</option>
-                    {roomTypes.map((type) => (
-                        <option key={type} value={type}>
-                            {type}
-                        </option>
-                    ))}
-                </select>
+        <div className='all-rooms'>
+            <h2>Manage Rooms</h2>
+            <div className='all-room-filter-div' >
+                <div className='filter-select-div'>
+                    <label>Filter by Room Type:</label>
+                    <select value={selectedRoomType} onChange={handleRoomTypeChange}>
+                        <option value="">All</option>
+                        {roomTypes.map((type) => (
+                            <option key={type} value={type}>
+                                {type}
+                            </option>
+                        ))}
+                    </select>
+                    <button className='add-room-button' onClick={() => Navigate('/admin/add-room')}>
+                        Add Room
+                    </button>
+                </div>
             </div>
-            {error && <p className="error-message">{error}</p>}
-            {
-                //------------------------Soon RoomSearch -----------------------------------------------------------------------------------------------
-            }
 
             <RoomResult roomSearchResults={currentRooms} />
 
@@ -100,4 +94,4 @@ const AllRoomsPage = () => {
     )
 }
 
-export default AllRoomsPage
+export default ManageRoomsPage

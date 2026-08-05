@@ -5,7 +5,6 @@
 }
 .room-list-item {
     width: calc(95% - 20px);
-    height: 25vh;
     margin: 10px auto;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -13,19 +12,31 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    
+
 }
 .room-list-item-image {
-    width: 20%;
-    height: 20vh;
+    width: 180px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
     border-radius: 5px;
-    margin-left: 10px;
+    flex-shrink: 0; /* Prevents the image from shrinking when space is limited */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;
     
 }
 .room-details {
     flex: 1;
     padding: 15px;
-    margin-left: 10px;
+    text-align: start;
+}
+.room-details p{
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.room-details h3{
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 .book-now-div {
     align-self: center;
