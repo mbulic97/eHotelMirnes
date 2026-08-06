@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import ApiService from '../../service/ApiService';
-import { Navigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import RoomResult from '../common/RoomResult';
 import Pagination from '../common/Pagination';
 
 const ManageRoomsPage = () => {
+    const navigate = useNavigate();
     const [rooms, setRooms] = useState([]);
     const [filteredRooms, setFilteredRooms] = useState([]);
     const [roomTypes, setRoomTypes] = useState([]);
@@ -76,7 +77,7 @@ const ManageRoomsPage = () => {
                             </option>
                         ))}
                     </select>
-                    <button className='add-room-button' onClick={() => Navigate('/admin/add-room')}>
+                    <button className='add-room-button' onClick={() => navigate('/admin/add-room')}>
                         Add Room
                     </button>
                 </div>

@@ -12,6 +12,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
 
 }
 .room-list-item-image {
@@ -64,4 +66,10 @@
 
 .book-now-button:active, .edit-room-button:active {
     transform: scale(0.96);
+}
+
+.room-list-item:hover {
+    background-color: #F5F5F5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
 }

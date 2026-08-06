@@ -10,6 +10,7 @@ import AllRoomsPage from './component/booking_rooms/AllRoomsPage';
 import AdminPage from './component/admin/AdminPage';
 import ManageUsersPage from './component/admin/ManageUsersPage';
 import ManageRoomsPage from './component/admin/ManageRoomsPage';
+import AddRoomPage from './component/admin/AddRoomPage';
 function App() {
   return (
     <BrowserRouter>
@@ -21,11 +22,12 @@ function App() {
             <Route path="/home" element={<HomePage />} />
             <Route path='/register' element={<RegisterPage />}></Route>
             <Route path='/login' element={<LoginPage />}></Route>
-            <Route path='/rooms' element={<AllRoomsPage/>}></Route>
+            <Route path='/rooms' element={<AllRoomsPage />}></Route>
             <Route path='/profile' element={<ProfilePage />}></Route>
-            <Route path='/admin' element={<AdminPage/>}></Route>
-            <Route path='/admin/manage-users' element={<ManageUsersPage/>}></Route>
-            <Route path='/admin/manage-rooms' element={<ManageRoomsPage/>}></Route>
+            <Route path='/admin' element={<AdminPage />}></Route>
+            <Route path='/admin/manage-users' element={<ManageUsersPage />}></Route>
+            <Route path='/admin/manage-rooms' element={<ManageRoomsPage />}></Route>
+            <Route path='/admin/add-room' element={<AddRoomPage />}></Route>
 
           </Routes>
         </div>

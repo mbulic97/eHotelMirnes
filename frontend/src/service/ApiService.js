@@ -83,5 +83,14 @@ export default class ApiService {
 
         return response.data;
     }
+    static async addRoom(formData) {
+        const result = await axios.post(`${this.BASE_URL}/rooms/add`, formData, {
+            headers: {
+                ...this.getHeader(),
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return result.data;
+    }
 
 }
