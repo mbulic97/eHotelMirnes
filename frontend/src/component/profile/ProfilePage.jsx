@@ -35,7 +35,7 @@ const ProfilePage = () => {
 
     return (
         <div className="profile-page">
-            {user && <h2>Welcome, {user.name}</h2>}
+            {user && <h2>Hi, {user.name}</h2>}
             <div className="profile-actions">
                 <button className="edit-profile-button" >Edit Profile</button>
                 <button className="logout-button" onClick={handleLogout}>Logout</button>

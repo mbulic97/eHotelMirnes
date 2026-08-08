@@ -67,6 +67,8 @@
     justify-content: center;
     padding-right: 25px;
     text-align: center;
+    padding-top: 15px;
+    
 }
 
 .details-2{
@@ -74,6 +76,7 @@
     flex-direction: column;
     justify-content: center;
     padding-left: 25px;
+    padding-top: 15px;
 }
 .details-2 p{
     margin-top:0px ;
@@ -87,4 +90,14 @@
 }
 .city h2{
     font-weight: normal;
+}
+.city img{
+    width: 85px;
+}
+.room-carousel {
+    display: flex;
+
+     margin-left: auto;
+     margin-right: auto;
+
 }

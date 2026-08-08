@@ -1,21 +1,51 @@
+import ApiService from '../../service/ApiService';
 import './HomePage.css'
 import React, { useEffect, useState } from "react";
+import RoomCarousel from './RoomCarousel';
 
 const HomePage = () => {
     const [weather, setWeather] = useState(null);
+    const [error, setError] = useState(null);
+    const isUser = ApiService.isUser();
+    const isAdmin = ApiService.isAdmin();
+    const [rooms, setRooms] = useState([]);
 
     useEffect(() => {
         const getWeather = async () => {
-            const response = await fetch(
-                "https://wrd-api.fit.ba/api/Weather/sarajevo"
-            );
+            try {
+                const response = await fetch(
+                    "https://wrd-api.fit.ba/api/Weather/Sarajevo"
+                );
+                if (!response.ok) {
+                    const data = await response.json();
+                    throw new Error(data.message);
+                }
+                const data = await response.json();
 
-            const data = await response.json();
+                setWeather(data);
+            } catch (error) {
+                //console.error("Error fetching weather:", error);
+                setError(error.message);
 
-            setWeather(data);
+            };
+
+        }
+        getWeather();
+
+    }, []);
+
+
+    useEffect(() => { //Room Carousel
+        const fetchRooms = async () => {
+            try {
+                const response = await ApiService.getAllRooms();
+                setRooms(response.roomList);
+            } catch (error) {
+                console.error(error);
+            }
         };
 
-        getWeather();
+        fetchRooms();
     }, []);
     return (
         <div className="home">
@@ -25,22 +55,42 @@ const HomePage = () => {
 
                     <div className="overlay"></div>
                     <div className="animated-texts overlay-content">
-                        <h1>
-                            Welcome to <span className="eHotelMirnes-color">eHotelMirnes</span>
-                        </h1><br />
-                        <h3>Find Your Ideal Room — Book Now, Pay Less</h3>
+
+                        {isUser && (<><h1>Welcome back to <span className="eHotelMirnes-color">eHotelMirnes</span></h1>
+                            <br />
+                            <h3>Ready to find your next stay?</h3>
+                        </>)}
+                        {isAdmin && (<><h1>Welcome,  <span className="eHotelMirnes-color">Administrator</span></h1>
+                            <br />
+                            <h3>Manage your hotel from the admin dashboard</h3>
+                        </>)}
+                        {(!isAdmin && !isUser) && (<>
+                            <h1>Explore,  <span className="eHotelMirnes-color">eHotelMirnes</span>
+                            </h1>
+                            <br />
+                            <h3>Find your perfect stay and book your next trip</h3>
+
+                        </>)}
+
+                        <br />
                     </div>
                 </header>
             </section>
 
             <h4>  <a className="view-rooms-home" href="/rooms">All Rooms</a></h4>
+            <h2>Looking for the perfect stay?</h2>
+            <div className="room-carousel"><RoomCarousel rooms={rooms} /></div>
+            
             <h2 className="home-services">Services at <span className="eHotelMirnes-color">eHotelMirnes</span></h2>
+            <h2>Weather</h2>
+            {error && <p className="error-message">{error}</p>}
             {weather && (
 
                 <div>
-                    <h2>Weather</h2>
+
                     <div className="city">
                         <h2>City: {weather.name}</h2>
+                        <img src={`https://flags.restcountries.com/v5/w640/${weather.sys.country.toLowerCase()}.png`} alt="" />
                     </div>
 
                     <div className="weather">
@@ -71,14 +121,10 @@ const HomePage = () => {
                             </div>
                         </div>
 
-
-
-                    </div></div>
-
+                    </div>
+                </div>
             )}
-            <section>
 
-            </section>
         </div>
     );
 }

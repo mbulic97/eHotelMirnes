@@ -1,0 +1,23 @@
+.room-carousel {
+    display: flex;
+    overflow-x: auto;
+
+}
+
+.room-carousel-item {
+    min-width: 280px;
+    /*flex-shrink: 0;*/
+    margin: 10px;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+
+}
+.room-carousel-item img{
+    width: 180px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 5px;
+    flex-shrink: 0; /* Prevents the image from shrinking when space is limited */
+    margin-top: 15px;
+    
+}
