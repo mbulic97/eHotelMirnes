@@ -2,6 +2,8 @@ import ApiService from '../../service/ApiService';
 import './HomePage.css'
 import React, { useEffect, useState } from "react";
 import RoomCarousel from './RoomCarousel';
+import 'react-datepicker/dist/react-datepicker.css'
+import DatePicker from 'react-datepicker';
 
 const HomePage = () => {
     const [weather, setWeather] = useState(null);
@@ -9,6 +11,8 @@ const HomePage = () => {
     const isUser = ApiService.isUser();
     const isAdmin = ApiService.isAdmin();
     const [rooms, setRooms] = useState([]);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
 
     useEffect(() => {
         const getWeather = async () => {
@@ -61,18 +65,51 @@ const HomePage = () => {
                             <h3>Ready to find your next stay?</h3>
                         </>)}
                         {isAdmin && (<><h1>Welcome,  <span className="eHotelMirnes-color">Administrator</span></h1>
-                            <br />
+
                             <h3>Manage your hotel from the admin dashboard</h3>
                         </>)}
                         {(!isAdmin && !isUser) && (<>
                             <h1>Explore,  <span className="eHotelMirnes-color">eHotelMirnes</span>
                             </h1>
-                            <br />
+
                             <h3>Find your perfect stay and book your next trip</h3>
 
                         </>)}
-
                         <br />
+                        <br />
+                        <section>
+                            <div className="search-container">
+                                <div className="search-field">
+                                    <DatePicker
+                                        className="search-input"
+                                        selected={startDate}
+                                        onChange={(date) => setStartDate(date)}
+                                        dateFormat="dd/MM/yyyy"
+                                        placeholderText="Select Check-in Date"
+                                    />
+                                </div>
+                                <div className="search-field">
+                                    <DatePicker
+                                        className="search-input"
+                                        selected={endDate}
+                                        onChange={(date) => setEndDate(date)}
+                                        dateFormat="dd/MM/yyyy"
+                                        placeholderText="Select Check-out Date"
+                                    />
+                                </div>
+
+                                <div className="search-field">
+                                    <input
+                                        className="search-input"
+                                        type="text"
+                                        placeholder="Room Type or Description:"
+                                    />
+                                </div>
+                                <button className="home-search-button" >
+                                    Search
+                                </button>
+                            </div>
+                        </section>
                     </div>
                 </header>
             </section>
@@ -80,7 +117,7 @@ const HomePage = () => {
             <h4>  <a className="view-rooms-home" href="/rooms">All Rooms</a></h4>
             <h2>Looking for the perfect stay?</h2>
             <div className="room-carousel"><RoomCarousel rooms={rooms} /></div>
-            
+
             <h2 className="home-services">Services at <span className="eHotelMirnes-color">eHotelMirnes</span></h2>
             <h2>Weather</h2>
             {error && <p className="error-message">{error}</p>}

@@ -1,3 +1,6 @@
+* {
+    box-sizing: border-box;
+}
 .overlay {
     position: absolute;
     top: 0;
@@ -18,6 +21,8 @@
 }
 
 .header-banner {
+    position: relative;
+    height: 500px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -31,11 +36,11 @@
 
 }
 
-.header-banner {
+/*.header-banner {
     position: relative;
     height: 500px;
 }
-
+*/
 .header-banner h1 {
     font-size: 50px;
     color: #f8f3f3;
@@ -43,7 +48,7 @@
 
 .header-banner h3 {
     color: #f8f3f3;
-    font-size: 30px;
+    /*font-size: 30px;*/
 }
 
 .home-services {
@@ -100,4 +105,60 @@
      margin-left: auto;
      margin-right: auto;
 
+}
+
+.search-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F5F5F5;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    border-radius: 5px;
+}
+.home-search-button{
+    color: #fff;
+    border: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background-color: #003b95;
+}
+.search-field {
+    padding-right: 5px;
+    
+}
+.search-input{
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+@media (max-width: 900px) {
+.search-container{
+    width: 260px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-field {
+    padding: 0px;
+    padding-bottom: 5px;
+    
+    
+}
+
+.search-input{
+    width: 250px;
+}
+.home-search-button{
+    width: 250px;
+    
+}
 }
