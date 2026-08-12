@@ -15,5 +15,17 @@ public class RoomDTO {
     private BigDecimal roomPrice;
     private String roomPhotoUrl;
     private String roomDescription;
+
+    private String city;
+    private String country;
+
+    private int maxGuests;
+
+    private boolean wifiAvailable;
+    private boolean parkingAvailable;
+    private boolean privateBathroom;
+    private boolean airConditioning;
+    private boolean tvAvailable;
+
     private List<BookingDTO> bookings;
 }
