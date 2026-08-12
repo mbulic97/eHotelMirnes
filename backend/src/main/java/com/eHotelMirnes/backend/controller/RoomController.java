@@ -1,7 +1,9 @@
 package com.eHotelMirnes.backend.controller;
 
 import com.eHotelMirnes.backend.dto.Response;
+import com.eHotelMirnes.backend.dto.RoomRequest;
 import com.eHotelMirnes.backend.service.interfac.IRoomService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,24 +30,14 @@ public class RoomController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> addNewRoom(
             @RequestParam(value = "photo", required = false) MultipartFile photo,
-            @RequestParam(value = "roomType", required = false) String roomType,
-            @RequestParam(value = "roomPrice", required = false) BigDecimal roomPrice,
-            @RequestParam(value = "roomDescription", required = false) String roomDescription
+            @Valid @ModelAttribute RoomRequest roomRequest
     ) {
         log.info("PHOTO: {}", photo);
-        log.info("ROOM TYPE: {}", roomType);
-        log.info("ROOM PRICE: {}", roomPrice);
-        log.info("DESCRIPTION: {}", roomDescription);
-        if (photo == null || photo.isEmpty() || roomType == null || roomType.isBlank() || roomPrice == null ) {
-            Response response = new Response();
-            response.setStatusCode(400);
-            response.setMessage("Please provide values for all fields(photo, roomType, roomPrice)");
-            return ResponseEntity.status(response.getStatusCode()).body(response);
-        }
-        Response response = roomService.addNewRoom(photo, roomType, roomPrice, roomDescription);
-        return ResponseEntity.status(response.getStatusCode()).body(response);
-        }
+        log.info("addNewRoom - Room request: {}", roomRequest );
 
+        Response response =  roomService.addNewRoom(photo,roomRequest);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
 
     @GetMapping("/all")
     public ResponseEntity<Response> getAllRooms() {
@@ -66,13 +58,16 @@ public class RoomController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
     @PutMapping("/update/{roomId}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Response> updateRoom(@PathVariable Long roomId,
-                                               @RequestParam(value = "photo", required = false) MultipartFile photo,
-                                               @RequestParam(value = "roomType", required = false) String roomType,
-                                               @RequestParam(value = "roomPrice", required = false) BigDecimal roomPrice,
-                                               @RequestParam(value = "roomDescription", required = false) String roomDescription){
-        Response response = roomService.updateRoom(roomId, roomDescription, roomType, roomPrice, photo);
+    @PreAuthorize("hasAuthority('ADMIN')")// only RoomRequest
+    public ResponseEntity<Response> updateRoom(
+            @PathVariable Long roomId,
+            //@RequestPart(value = "photo", required = false) MultipartFile photo,
+            @Valid @RequestBody RoomRequest roomRequest) {
+
+        log.info("Update - Room request: {}", roomRequest );
+
+        Response response = roomService.updateRoom(roomId, roomRequest);
+        response.setStatusCode(200);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
