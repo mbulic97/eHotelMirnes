@@ -2,6 +2,7 @@ package com.eHotelMirnes.backend.service.impl;
 
 import com.eHotelMirnes.backend.dto.Response;
 import com.eHotelMirnes.backend.dto.RoomDTO;
+import com.eHotelMirnes.backend.dto.RoomRequest;
 import com.eHotelMirnes.backend.entity.Room;
 import com.eHotelMirnes.backend.exception.OurException;
 import com.eHotelMirnes.backend.repo.RoomRepository;
@@ -23,16 +24,28 @@ public class RoomService implements IRoomService {
     @Autowired
     private AwsS3Service awsS3Service;
     @Override
-    public Response addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice, String description) {
+    public Response addNewRoom(MultipartFile photo, RoomRequest roomRequest){
+    //public Response addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice, String description) {
         Response response = new Response();
 
         try {
             String imageUrl = awsS3Service.saveImageToS3(photo);
             Room room = new Room();
             room.setRoomPhotoUrl(imageUrl);
-            room.setRoomType(roomType);
-            room.setRoomPrice(roomPrice);
-            room.setRoomDescription(description);
+            room.setRoomType(roomRequest.getRoomType());
+            room.setRoomPrice(roomRequest.getRoomPrice());
+            room.setRoomDescription(roomRequest.getRoomDescription());
+            room.setCity(roomRequest.getCity());
+            room.setCountry(roomRequest.getCountry());
+            room.setMaxGuests(roomRequest.getMaxGuests());
+            room.setWifiAvailable(roomRequest.getWifiAvailable());
+            room.setParkingAvailable(roomRequest.getParkingAvailable());
+            room.setPrivateBathroom(roomRequest.getPrivateBathroom());
+            room.setAirConditioning(roomRequest.getAirConditioning());
+            room.setTvAvailable(roomRequest.getTvAvailable());
+            //room.setRoomType(roomType);
+            //room.setRoomPrice(roomPrice);
+            //room.setRoomDescription(description);
             Room savedRoom = roomRepository.save(room);
             RoomDTO roomDTO = Utils.mapRoomEntityToRoomDTO(savedRoom);
             response.setStatusCode(200);
@@ -87,18 +100,31 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public Response updateRoom(Long roomId, String description, String roomType, BigDecimal roomPrice, MultipartFile photo) {
+    public Response updateRoom(Long roomId, RoomRequest roomRequest) {
+
+        //public Response updateRoom(Long roomId, String description, String roomType, BigDecimal roomPrice, MultipartFile photo) {
         Response response = new Response();
 
         try {
             Room room = roomRepository.findById(roomId).orElseThrow(() -> new OurException("Room Not Found"));
-            if(roomType != null) room.setRoomType(roomType);
+            /*if(roomType != null) room.setRoomType(roomType);
             if(roomPrice != null) room.setRoomPrice(roomPrice);
-            if(description != null) room.setRoomDescription(description);
-            if(photo != null && !photo.isEmpty()){
+            if(description != null) room.setRoomDescription(description);*/
+            /*if(photo != null && !photo.isEmpty()){
                 String imageUrl = awsS3Service.saveImageToS3(photo);
                 room.setRoomPhotoUrl(imageUrl);
-            }
+            }*/
+            room.setRoomType(roomRequest.getRoomType());
+            room.setRoomPrice(roomRequest.getRoomPrice());
+            room.setRoomDescription(roomRequest.getRoomDescription());
+            room.setCity(roomRequest.getCity());
+            room.setCountry(roomRequest.getCountry());
+            room.setMaxGuests(roomRequest.getMaxGuests());
+            room.setWifiAvailable(roomRequest.getWifiAvailable());
+            room.setParkingAvailable(roomRequest.getParkingAvailable());
+            room.setPrivateBathroom(roomRequest.getPrivateBathroom());
+            room.setAirConditioning(roomRequest.getAirConditioning());
+            room.setTvAvailable(roomRequest.getTvAvailable());
             Room updatedRoom = roomRepository.save(room);
             RoomDTO roomDTO = Utils.mapRoomEntityToRoomDTO(updatedRoom);
 
