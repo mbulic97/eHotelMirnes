@@ -40,6 +40,14 @@ public class Utils {
         roomDTO.setRoomPrice(room.getRoomPrice());
         roomDTO.setRoomPhotoUrl(room.getRoomPhotoUrl());
         roomDTO.setRoomDescription(room.getRoomDescription());
+        roomDTO.setCity(room.getCity());
+        roomDTO.setCountry(room.getCountry());
+        roomDTO.setMaxGuests(room.getMaxGuests());
+        roomDTO.setWifiAvailable(room.isWifiAvailable());
+        roomDTO.setParkingAvailable(room.isParkingAvailable());
+        roomDTO.setPrivateBathroom(room.isPrivateBathroom());
+        roomDTO.setAirConditioning(room.isAirConditioning());
+        roomDTO.setTvAvailable(room.isTvAvailable());
         return roomDTO;
     }
 
