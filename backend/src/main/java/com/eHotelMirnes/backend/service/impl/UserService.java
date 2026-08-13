@@ -12,6 +12,7 @@ import com.eHotelMirnes.backend.utils.JWTUtils;
 import com.eHotelMirnes.backend.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -49,18 +50,18 @@ public class UserService implements IUserService{
             User savedUser = userRepository.save(user);
             emailService.sendWelcomeEmail(savedUser);
             UserDTO userDTO = Utils.mapUserEntityToUserDTO(savedUser);
-            response.setStatusCode(200);
+
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("User registered successfully");
             response.setUser(userDTO);
-
         } catch (OurException e) {
-            response.setStatusCode(400);
+            response.setStatusCode(HttpStatus.BAD_REQUEST.value());
             response.setMessage(e.getMessage());
-            log.debug("Status code: 400" + e.getMessage());
+            log.debug("Status code: 400: - " + e.getMessage());
         } catch (Exception e) {
-            response.setStatusCode(500);
-            log.debug("Status code: 400" + "Error Occurred During USer Registration " + e.getMessage());
-            response.setMessage("Error Occurred During USer Registration " + e.getMessage());
-
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to register user: " + e.getMessage());
+            log.debug("Status code: 500: -  User registration: " + e.getMessage());
         }
         return response;
     }
@@ -73,23 +74,22 @@ public class UserService implements IUserService{
             var user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new OurException("User not found"));
 
             var token = jwtUtils.generateToken(user);
-            response.setStatusCode(200);
+            response.setStatusCode(HttpStatus.OK.value());
             response.setToken(token);
             response.setRole(user.getRole());
             response.setExpirationTime("7 Days");
-            response.setMessage("Successful");
+            response.setMessage("Login successful");
             log.info("User login successful: " + loginRequest.getEmail());
         } catch(BadCredentialsException e){
-            response.setStatusCode(401);
+            response.setStatusCode(HttpStatus.UNAUTHORIZED.value());
             response.setMessage("Invalid email or password");
         } catch (OurException e) {
-            response.setStatusCode(404);
+            response.setStatusCode(HttpStatus.NOT_FOUND.value());
             response.setMessage(e.getMessage());
         } catch (Exception e){
-            log.info("Status code: 500, User login");
-            response.setStatusCode(500);
-
-            response.setMessage("Something went wrong. Please try again.");
+            log.info("Status code: 500 - User login: " + loginRequest.getEmail());
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to login. Please try again.");
         }
         return response;
     }
@@ -102,15 +102,15 @@ public class UserService implements IUserService{
         try{
             User user = userRepository.findByEmail(email).orElseThrow(() -> new OurException("User Not Found"));
             UserDTO userDTO = Utils.mapUserEntityToUserDTO(user);
-            response.setStatusCode(200);
-            response.setMessage("successful");
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("User information retrieved successfully");
             response.setUser(userDTO);
         } catch (OurException e) {
-            response.setStatusCode(404);
+            response.setStatusCode(HttpStatus.NOT_FOUND.value());
             response.setMessage(e.getMessage());
         } catch (Exception e){
-            response.setStatusCode(500);
-            response.setMessage("Error getting user info " + e.getMessage());
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to retrieve user information: " + e.getMessage());
         }
         return response;
     }
@@ -122,18 +122,17 @@ public class UserService implements IUserService{
         try {
             User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new OurException("User Not Found"));
             UserDTO userDTO = Utils.mapUserEntityToUserDTO(user);
-            response.setStatusCode(200);
-            response.setMessage("successful");
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("User retrieved successfully");
             response.setUser(userDTO);
 
         } catch (OurException e) {
-            response.setStatusCode(404);
+            response.setStatusCode(HttpStatus.NOT_FOUND.value());
             response.setMessage(e.getMessage());
 
         } catch (Exception e) {
-
-            response.setStatusCode(500);
-            response.setMessage("Error getting user by id " + e.getMessage());
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to retrieve user: " + e.getMessage());
         }
         return response;
     }
@@ -142,14 +141,14 @@ public class UserService implements IUserService{
         try {
             userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new OurException("User Not Found"));
             userRepository.deleteById(Long.valueOf(userId));
-            response.setStatusCode(200);
-            response.setMessage("successful");
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("User deleted successfully");
         } catch (OurException e) {
-            response.setStatusCode(404);
+            response.setStatusCode(HttpStatus.NOT_FOUND.value());
             response.setMessage(e.getMessage());
         } catch (Exception e){
-            response.setStatusCode(500);
-            response.setMessage("Error deleting user " + e.getMessage());
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to delete user: " + e.getMessage());
         }
         return response;
     }
@@ -158,12 +157,12 @@ public class UserService implements IUserService{
         try {
             List<User> userList = userRepository.findAll();
             List<UserDTO> userDTOList = Utils.mapUserListEntityToUserListDTO(userList);
-            response.setStatusCode(200);
-            response.setMessage("successful");
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("Users retrieved successfully");
             response.setUserList(userDTOList);
         } catch (Exception e) {
-            response.setStatusCode(500);
-            response.setMessage("Error getting all users" + e.getMessage());
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to retrieve users: " + e.getMessage());
         }
         return response;
     }
@@ -185,18 +184,17 @@ public class UserService implements IUserService{
             }
 
             User updatedUser = userRepository.save(existingUser);
-
             UserDTO userDTO = Utils.mapUserEntityToUserDTO(updatedUser);
 
-            response.setStatusCode(200);
+            response.setStatusCode(HttpStatus.OK.value());
             response.setMessage("User updated successfully");
             response.setUser(userDTO);
         } catch (OurException e) {
-            response.setStatusCode(404);
+            response.setStatusCode(HttpStatus.NOT_FOUND.value());
             response.setMessage(e.getMessage());
         } catch (Exception e) {
-            response.setStatusCode(500);
-            response.setMessage("Error updating user " + e.getMessage());
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to update user: " + e.getMessage());
         }
         return response;
     }

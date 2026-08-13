@@ -26,9 +26,9 @@ public class User implements UserDetails {
     private String phoneNumber;
     @NotBlank(message = "Password is required")
     private String password;
-    private String role;
+    private String role; // ADMIN and USER
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Booking> booking = new ArrayList<>();
+    private List<Booking> bookings = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

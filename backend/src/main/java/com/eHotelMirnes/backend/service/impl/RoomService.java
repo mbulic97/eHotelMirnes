@@ -11,6 +11,7 @@ import com.eHotelMirnes.backend.service.interfac.IRoomService;
 import com.eHotelMirnes.backend.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,12 +49,12 @@ public class RoomService implements IRoomService {
             //room.setRoomDescription(description);
             Room savedRoom = roomRepository.save(room);
             RoomDTO roomDTO = Utils.mapRoomEntityToRoomDTO(savedRoom);
-            response.setStatusCode(200);
-            response.setMessage("successful");
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("Room added successfully");
             response.setRoom(roomDTO);
         } catch (Exception e){
-            response.setStatusCode(500);
-            response.setMessage("Error saving a room " + e.getMessage());
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to add room: " + e.getMessage());
         }
         return response;
     }
@@ -70,11 +71,11 @@ public class RoomService implements IRoomService {
         try {
             List<Room> roomList = roomRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
             List<RoomDTO> roomDTOList = Utils.mapRoomListEntityToRoomListDTO(roomList);
-            response.setStatusCode(200);
-            response.setMessage("successful");
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("Rooms retrieved successfully");
             response.setRoomList(roomDTOList);
         } catch (Exception e) {
-            response.setStatusCode(500);
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMessage("Error getting all rooms " + e.getMessage());
         }
         return response;
@@ -87,20 +88,20 @@ public class RoomService implements IRoomService {
         try {
             roomRepository.findById(roomId).orElseThrow(() -> new OurException("Room Not Found"));
             roomRepository.deleteById(roomId);
-            response.setStatusCode(200);
-            response.setMessage("successful");
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("Room deleted successfully");
         } catch (OurException e){
-            response.setStatusCode(404);
+            response.setStatusCode(HttpStatus.NOT_FOUND.value());
             response.setMessage(e.getMessage());
         } catch (Exception e) {
-            response.setStatusCode(500);
-            response.setMessage("Error deleting a room " + e.getMessage());
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to delete room: " + e.getMessage());
         }
         return response;
     }
 
     @Override
-    public Response updateRoom(Long roomId, RoomRequest roomRequest) {
+    public Response updateRoom(Long roomId, RoomRequest roomRequest, MultipartFile photo) {
 
         //public Response updateRoom(Long roomId, String description, String roomType, BigDecimal roomPrice, MultipartFile photo) {
         Response response = new Response();
@@ -110,33 +111,50 @@ public class RoomService implements IRoomService {
             /*if(roomType != null) room.setRoomType(roomType);
             if(roomPrice != null) room.setRoomPrice(roomPrice);
             if(description != null) room.setRoomDescription(description);*/
-            /*if(photo != null && !photo.isEmpty()){
+
+
+            if (roomRequest.getRoomType() != null )
+            room.setRoomType(roomRequest.getRoomType());
+            if (roomRequest.getRoomPrice() != null )
+            room.setRoomPrice(roomRequest.getRoomPrice());
+            if(photo != null && !photo.isEmpty()){
                 String imageUrl = awsS3Service.saveImageToS3(photo);
                 room.setRoomPhotoUrl(imageUrl);
-            }*/
-            room.setRoomType(roomRequest.getRoomType());
-            room.setRoomPrice(roomRequest.getRoomPrice());
+            }
+            if (roomRequest.getRoomDescription() != null )
             room.setRoomDescription(roomRequest.getRoomDescription());
+
+            if (roomRequest.getCity() != null )
             room.setCity(roomRequest.getCity());
+            if (roomRequest.getCountry() != null )
             room.setCountry(roomRequest.getCountry());
+
+            if (roomRequest.getMaxGuests() != null )
             room.setMaxGuests(roomRequest.getMaxGuests());
+
+            if (roomRequest.getWifiAvailable() != null )
             room.setWifiAvailable(roomRequest.getWifiAvailable());
+            if (roomRequest.getParkingAvailable() != null )
             room.setParkingAvailable(roomRequest.getParkingAvailable());
+            if (roomRequest.getPrivateBathroom() != null )
             room.setPrivateBathroom(roomRequest.getPrivateBathroom());
+            if (roomRequest.getAirConditioning() != null )
             room.setAirConditioning(roomRequest.getAirConditioning());
+            if (roomRequest.getTvAvailable() != null )
             room.setTvAvailable(roomRequest.getTvAvailable());
+
             Room updatedRoom = roomRepository.save(room);
             RoomDTO roomDTO = Utils.mapRoomEntityToRoomDTO(updatedRoom);
 
-            response.setStatusCode(200);
-            response.setMessage("successful");
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("Room updated successfully");
             response.setRoom(roomDTO);
         } catch (OurException e) {
-            response.setStatusCode(404);
+            response.setStatusCode(HttpStatus.NOT_FOUND.value());
             response.setMessage(e.getMessage());
         } catch (Exception e) {
-            response.setStatusCode(500);
-            response.setMessage("Error updating room " + e.getMessage());
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to update room " + e.getMessage());
         }
         return response;
     }
