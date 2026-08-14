@@ -1,4 +1,4 @@
-package com.eHotelMirnes.backend;
+package com.eHotelMirnes.backend.repo;
 import com.eHotelMirnes.backend.entity.User;
 import com.eHotelMirnes.backend.repo.UserRepository;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 //@SpringBootTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class UserRepositoryTest{
     @Autowired
     private UserRepository userRepository;
