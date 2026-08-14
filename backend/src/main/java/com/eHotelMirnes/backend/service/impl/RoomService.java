@@ -5,7 +5,7 @@ import com.eHotelMirnes.backend.dto.RoomDTO;
 import com.eHotelMirnes.backend.dto.RoomRequest;
 import com.eHotelMirnes.backend.entity.Room;
 import com.eHotelMirnes.backend.exception.OurException;
-import com.eHotelMirnes.backend.repo.RoomRepository;
+import com.eHotelMirnes.backend.repository.RoomRepository;
 import com.eHotelMirnes.backend.service.AwsS3Service;
 import com.eHotelMirnes.backend.service.interfac.IRoomService;
 import com.eHotelMirnes.backend.utils.Utils;
@@ -15,7 +15,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 @Service

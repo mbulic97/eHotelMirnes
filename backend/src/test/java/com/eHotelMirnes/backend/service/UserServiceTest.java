@@ -3,7 +3,7 @@ package com.eHotelMirnes.backend.service;
 import com.eHotelMirnes.backend.dto.LoginRequest;
 import com.eHotelMirnes.backend.dto.Response;
 import com.eHotelMirnes.backend.entity.User;
-import com.eHotelMirnes.backend.repo.UserRepository;
+import com.eHotelMirnes.backend.repository.UserRepository;
 import com.eHotelMirnes.backend.service.impl.UserService;
 import com.eHotelMirnes.backend.utils.JWTUtils;
 import org.junit.jupiter.api.DisplayName;

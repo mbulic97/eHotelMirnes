@@ -5,7 +5,7 @@ import com.eHotelMirnes.backend.dto.Response;
 import com.eHotelMirnes.backend.dto.UserDTO;
 import com.eHotelMirnes.backend.entity.User;
 import com.eHotelMirnes.backend.exception.OurException;
-import com.eHotelMirnes.backend.repo.UserRepository;
+import com.eHotelMirnes.backend.repository.UserRepository;
 import com.eHotelMirnes.backend.service.EmailService;
 import com.eHotelMirnes.backend.service.interfac.IUserService;
 import com.eHotelMirnes.backend.utils.JWTUtils;
@@ -44,7 +44,7 @@ public class UserService implements IUserService{
                 user.setRole("USER");
             }
             if (userRepository.existsByEmail(user.getEmail())) {
-                throw new OurException(user.getEmail() + "Already Exists");
+                throw new OurException("User with email " + user.getEmail() + " already exists");
             }
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             User savedUser = userRepository.save(user);

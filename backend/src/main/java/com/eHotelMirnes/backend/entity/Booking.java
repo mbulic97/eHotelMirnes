@@ -25,7 +25,7 @@ public class Booking {
     @Min(value = 0, message = "Number of children must not be less that 0")
     private int numOfChildren;
     private int totalNumOfGuest;
-    private String bookingConfirmationCode;
+    private String bookingReference;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -57,7 +57,7 @@ public class Booking {
                 ", numOfAdults=" + numOfAdults +
                 ", numOfChildren=" + numOfChildren +
                 ", totalNumOfGuest=" + totalNumOfGuest +
-                ", bookingConfirmationCode='" + bookingConfirmationCode + '\'' +
+                ", bookingReference='" + bookingReference + '\'' +
                 '}';
     }
 }

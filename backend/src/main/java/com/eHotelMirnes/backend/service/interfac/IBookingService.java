@@ -1,2 +1,5 @@
-package com.eHotelMirnes.backend.service.interfac;public class IBookingService {
+package com.eHotelMirnes.backend.service.interfac;
+
+public interface IBookingService {
+
 }

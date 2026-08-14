@@ -1,4 +1,4 @@
-package com.eHotelMirnes.backend.repo;
+package com.eHotelMirnes.backend.repository;
 
 import com.eHotelMirnes.backend.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;

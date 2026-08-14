@@ -1,7 +1,7 @@
 package com.eHotelMirnes.backend.service;
 
 import com.eHotelMirnes.backend.exception.OurException;
-import com.eHotelMirnes.backend.repo.UserRepository;
+import com.eHotelMirnes.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
