@@ -14,8 +14,7 @@ public class Response {
     private String token;
     private String role;
     private String expirationTime;
-    private String bookingConfirmationCode;
-
+    private String bookingReference;
     private UserDTO user;
     private RoomDTO room;
     private BookingDTO booking;

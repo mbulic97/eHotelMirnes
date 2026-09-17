@@ -113,34 +113,34 @@ public class RoomService implements IRoomService {
 
 
             if (roomRequest.getRoomType() != null )
-            room.setRoomType(roomRequest.getRoomType());
+                room.setRoomType(roomRequest.getRoomType());
             if (roomRequest.getRoomPrice() != null )
-            room.setRoomPrice(roomRequest.getRoomPrice());
+                room.setRoomPrice(roomRequest.getRoomPrice());
             if(photo != null && !photo.isEmpty()){
                 String imageUrl = awsS3Service.saveImageToS3(photo);
                 room.setRoomPhotoUrl(imageUrl);
             }
             if (roomRequest.getRoomDescription() != null )
-            room.setRoomDescription(roomRequest.getRoomDescription());
+                room.setRoomDescription(roomRequest.getRoomDescription());
 
             if (roomRequest.getCity() != null )
-            room.setCity(roomRequest.getCity());
+                room.setCity(roomRequest.getCity());
             if (roomRequest.getCountry() != null )
-            room.setCountry(roomRequest.getCountry());
+                room.setCountry(roomRequest.getCountry());
 
             if (roomRequest.getMaxGuests() != null )
-            room.setMaxGuests(roomRequest.getMaxGuests());
+                room.setMaxGuests(roomRequest.getMaxGuests());
 
             if (roomRequest.getWifiAvailable() != null )
-            room.setWifiAvailable(roomRequest.getWifiAvailable());
+                room.setWifiAvailable(roomRequest.getWifiAvailable());
             if (roomRequest.getParkingAvailable() != null )
-            room.setParkingAvailable(roomRequest.getParkingAvailable());
+                room.setParkingAvailable(roomRequest.getParkingAvailable());
             if (roomRequest.getPrivateBathroom() != null )
-            room.setPrivateBathroom(roomRequest.getPrivateBathroom());
+                room.setPrivateBathroom(roomRequest.getPrivateBathroom());
             if (roomRequest.getAirConditioning() != null )
-            room.setAirConditioning(roomRequest.getAirConditioning());
+                room.setAirConditioning(roomRequest.getAirConditioning());
             if (roomRequest.getTvAvailable() != null )
-            room.setTvAvailable(roomRequest.getTvAvailable());
+                room.setTvAvailable(roomRequest.getTvAvailable());
 
             Room updatedRoom = roomRepository.save(room);
             RoomDTO roomDTO = Utils.mapRoomEntityToRoomDTO(updatedRoom);

@@ -1,7 +1,9 @@
 package com.eHotelMirnes.backend.utils;
 
+import com.eHotelMirnes.backend.dto.BookingDTO;
 import com.eHotelMirnes.backend.dto.RoomDTO;
 import com.eHotelMirnes.backend.dto.UserDTO;
+import com.eHotelMirnes.backend.entity.Booking;
 import com.eHotelMirnes.backend.entity.Room;
 import com.eHotelMirnes.backend.entity.User;
 
@@ -14,7 +16,7 @@ public class Utils {
     private static final SecureRandom secureRandom = new SecureRandom();
 
 
-    public static String generateRandomConfirmationCode(int length) {
+    public static String generateRandomReference(int length) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < length; i++) {
             int randomIndex = secureRandom.nextInt(ALPHANUMERIC_STRING.length());
@@ -50,6 +52,48 @@ public class Utils {
         roomDTO.setTvAvailable(room.isTvAvailable());
         return roomDTO;
     }
+    public static BookingDTO mapBookingEntityToBookingDTOPlusBookedRooms(Booking booking, boolean mapUser){
+
+        BookingDTO bookingDTO = new BookingDTO();
+
+        bookingDTO.setId(booking.getId());
+        bookingDTO.setCheckInDate(booking.getCheckInDate());
+        bookingDTO.setCheckOutDate(booking.getCheckOutDate());
+        bookingDTO.setNumOfAdults(booking.getNumOfAdults());
+        bookingDTO.setNumOfChildren(booking.getNumOfChildren());
+        bookingDTO.setTotalNumOfGuest(booking.getTotalNumOfGuest());
+        bookingDTO.setBookingReference(booking.getBookingReference());
+        if(mapUser){
+            bookingDTO.setUser(Utils.mapUserEntityToUserDTO(booking.getUser()));
+        }
+        if (booking.getRoom() != null){
+            RoomDTO roomDTO = new RoomDTO();
+
+            roomDTO.setId(booking.getRoom().getId());
+            roomDTO.setRoomType(booking.getRoom().getRoomType());
+            roomDTO.setRoomPrice(booking.getRoom().getRoomPrice());
+            roomDTO.setRoomPhotoUrl(booking.getRoom().getRoomPhotoUrl());
+            roomDTO.setRoomDescription(booking.getRoom().getRoomDescription());
+            bookingDTO.setRoom(roomDTO);
+
+        }
+        return bookingDTO;
+
+    }
+    public static BookingDTO mapBookingEntityToBookingDTO(Booking booking){
+        BookingDTO bookingDTO = new BookingDTO();
+
+        bookingDTO.setId(booking.getId());
+        bookingDTO.setCheckInDate(booking.getCheckInDate());
+        bookingDTO.setCheckOutDate(booking.getCheckOutDate());
+        bookingDTO.setNumOfAdults(booking.getNumOfAdults());
+        bookingDTO.setNumOfChildren(booking.getNumOfChildren());
+        bookingDTO.setTotalNumOfGuest(booking.getTotalNumOfGuest());
+        bookingDTO.setBookingReference(booking.getBookingReference());
+        return bookingDTO;
+
+    }
+
 
     public static List<RoomDTO> mapRoomListEntityToRoomListDTO(List<Room> roomList){
         return roomList.stream().map(Utils::mapRoomEntityToRoomDTO).collect(Collectors.toList());
@@ -57,5 +101,8 @@ public class Utils {
 
     public static List<UserDTO> mapUserListEntityToUserListDTO(List<User> userList) {
         return userList.stream().map(Utils::mapUserEntityToUserDTO).collect(Collectors.toList());
+    }
+    public static List<BookingDTO> mapBookingListEntityToBookingListDTO(List<Booking> bookingList){
+        return bookingList.stream().map(Utils::mapBookingEntityToBookingDTO).collect(Collectors.toList());
     }
 }
