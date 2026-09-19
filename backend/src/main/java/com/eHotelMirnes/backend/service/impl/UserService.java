@@ -166,6 +166,31 @@ public class UserService implements IUserService{
         }
         return response;
     }
+
+    @Override
+    public Response getUserBookingHistory(String userId){
+
+        Response response = new Response();
+
+        try{
+            User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(() -> new OurException("User Not Found"));
+            UserDTO userDTO = Utils.mapUserEntityToUserDTOPlusUserBookingsAndRoom(user);
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("User booking history retrieved successfully");
+            response.setUser(userDTO);
+
+        } catch (OurException e) {
+            response.setStatusCode(HttpStatus.NOT_FOUND.value());
+            response.setMessage(e.getMessage());
+
+        } catch (Exception e){
+
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Failed to retrieve user booking history: " + e.getMessage());
+        }
+        return response;
+    }
+
     @Override
     public  Response updateUser(User user){
         Response response = new Response();

@@ -31,4 +31,16 @@ public class BookingController {
         Response response = bookingService.getAllBookings();
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
+
+    @GetMapping("/get-by-reference/{reference}")
+    public ResponseEntity<Response> getBookingReference(@PathVariable String reference){
+        Response response = bookingService.findBookingByReference(reference);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+    @DeleteMapping("/cancel/{bookingId}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
+    public ResponseEntity<Response> cancelBooking(@PathVariable Long bookingId){
+        Response response = bookingService.cancelBooking(bookingId);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
 }

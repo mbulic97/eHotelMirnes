@@ -16,4 +16,5 @@ public interface IUserService {
 
     Response getAllUsers();
     Response updateUser(User user);
+    Response getUserBookingHistory(String userId);
 }

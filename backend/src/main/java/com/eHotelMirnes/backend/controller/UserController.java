@@ -3,13 +3,14 @@ package com.eHotelMirnes.backend.controller;
 import com.eHotelMirnes.backend.dto.Response;
 import com.eHotelMirnes.backend.entity.User;
 import com.eHotelMirnes.backend.service.interfac.IUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
+@Slf4j
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -43,7 +44,7 @@ public class UserController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @PutMapping("update/{userId}")
+    @PutMapping("/update/{userId}")
     public ResponseEntity<Response> updateUser(
             @PathVariable Long userId,
             @RequestParam(value = "name",required = false) String name,
@@ -58,6 +59,12 @@ public class UserController {
 
         Response response = userService.updateUser(user);
 
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+    @GetMapping("/get-user-bookings/{userId}")
+    public ResponseEntity<Response> getUserBookingHistory(@PathVariable Long userId){
+        log.info("usao je ger");
+        Response response = userService.getUserBookingHistory(userId.toString());
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 }
