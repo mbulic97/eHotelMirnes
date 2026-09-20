@@ -2,18 +2,21 @@ import React, { useEffect, useState } from 'react'
 import ApiService from '../../service/ApiService'
 import Pagination from '../common/Pagination';
 import RoomResult from '../common/RoomResult';
+import RoomSearch from '../common/RoomSearch';
 
 const AllRoomsPage = () => {
     const [rooms, setRooms] = useState([]);
     const [filteredRooms, setFilteredRooms] = useState([]);
-    const [roomTypes, setRoomTypes] = useState([]);
-    const [selectedRoomType, setSelectedRoomType] = useState('');
+    //const [selectedRoomType, setSelectedRoomType] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [roomsPerPage] = useState(5);
     const [error, setError] = useState(null);
 
+    const handleSearchResult = (results) => {
+        setFilteredRooms(results)
+        setCurrentPage(1);
 
-
+    }
 
     useEffect(() => {
         const fetchRooms = async () => {
@@ -31,33 +34,12 @@ const AllRoomsPage = () => {
 
             }
         };
-        const fetchRoomTypes = async () => {
-            try {
-                const types = await ApiService.getRoomTypes();
-                setRoomTypes(types);
-            } catch (error) {
-                console.error('Error fetching room types:', error.message);
-            }
-        };
+        
         fetchRooms();
-        fetchRoomTypes();
 
     }, []);
 
-    const handleRoomTypeChange = (e) => {
-        setSelectedRoomType(e.target.value);
-        filterRooms(e.target.value);
-    };
-
-    const filterRooms = (type) => {
-        if (type === '') {
-            setFilteredRooms(rooms);
-        } else {
-            const filtered = rooms.filter((room) => room.roomType === type);
-            setFilteredRooms(filtered);
-        }
-        setCurrentPage(1); // Reset to first page after filtering
-    };
+    
 
     // Pagination
     const indexOfLastRoom = currentPage * roomsPerPage;
@@ -72,7 +54,7 @@ const AllRoomsPage = () => {
 
         <div>
             <h2>All Rooms</h2>
-            <div className='all-room-filter-div'>
+            {/*<div className='all-room-filter-div'>
                 <label>Filter by Room Type:</label>
                 <select value={selectedRoomType} onChange={handleRoomTypeChange}>
                     <option value="">All</option>
@@ -82,12 +64,13 @@ const AllRoomsPage = () => {
                         </option>
                     ))}
                 </select>
-            </div>
+            </div>*/}
             {error && <p className="error-message">{error}</p>}
             {
-                //------------------------Soon RoomSearch -----------------------------------------------------------------------------------------------
-            }
-
+            <RoomSearch
+                handleSearchResult={handleSearchResult}
+            />}
+            
             <RoomResult roomSearchResults={currentRooms} />
 
             <Pagination
