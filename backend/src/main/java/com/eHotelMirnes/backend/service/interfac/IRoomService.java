@@ -12,6 +12,11 @@ public interface IRoomService {
     Response addNewRoom(MultipartFile photo, RoomRequest roomRequest);
 
     List<String> getAllRoomTypes();
+
+    Response getAvailableRooms(LocalDate checkInDate,
+                                   LocalDate checkOutDate,
+                                   String roomType,
+                                   String city);
     Response getAllRooms();
     Response deleteRoom(Long roomId);
     Response updateRoom(Long roomId, RoomRequest roomRequest, MultipartFile photo);

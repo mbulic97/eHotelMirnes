@@ -64,6 +64,27 @@ public class RoomService implements IRoomService {
     }
 
     @Override
+    public Response getAvailableRooms(LocalDate checkInDate,
+                                          LocalDate checkOutDate,
+                                          String roomType,
+                                          String city) {
+
+        Response response = new Response();
+
+        try {
+            List<Room> availableRooms = roomRepository.findAvailableRooms(checkInDate,checkOutDate,roomType,city);
+            List<RoomDTO> roomDTOList = Utils.mapRoomListEntityToRoomListDTO(availableRooms);
+            response.setStatusCode(HttpStatus.OK.value());
+            response.setMessage("Rooms retrieved successfully");
+            response.setRoomList(roomDTOList);
+        } catch (Exception e){
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.setMessage("Error getting Available rooms " + e.getMessage());
+        }
+        return response;
+    }
+
+    @Override
     public Response getAllRooms() {
         Response response = new Response();
 
