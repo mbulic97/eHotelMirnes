@@ -16,12 +16,12 @@ export default class ApiService {
 
     static async registerUser(registration) {
         const response = await axios.post(`${this.BASE_URL}/auth/register`, registration)
-        return response.data
+        return response.data;
     }
 
     static async loginUser(loginDetails) {
         const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails)
-        return response.data
+        return response.data;
     }
 
     static logout() {
@@ -30,40 +30,45 @@ export default class ApiService {
     }
     static isAuthenticated() {
         const token = localStorage.getItem('role')
-        return !!token
+        return !!token;
     }
 
     static isUser() {
         const role = localStorage.getItem('role')
-        return role === 'USER'
+        return role === 'USER';
     }
 
     static isAdmin() {
         const role = localStorage.getItem('role')
-        return role === 'ADMIN'
+        return role === 'ADMIN';
     }
 
     static async getUserProfile() {
         const response = await axios.get(`${this.BASE_URL}/users/get-logged-in-profile-info`, {
             headers: this.getHeader()
         })
-        return response.data
+        return response.data;
     }
 
     static async getUserBookings(userId) {
         const response = await axios.get(`${this.BASE_URL}/users/get-user-bookings/${userId}`, {
             headers: this.getHeader()
         })
-        return response.data
+        return response.data;
     }
 
     static async getAllRooms() {
         const result = await axios.get(`${this.BASE_URL}/rooms/all`)
-        return result.data
+        return result.data;
     }
     static async getRoomTypes() {
         const response = await axios.get(`${this.BASE_URL}/rooms/types`)
-        return response.data
+        return response.data;
+    }
+    static async getAvailableRooms(checkInDate, checkOutDate, roomType, city) {
+        const response = await axios.get(`${this.BASE_URL}/rooms/available-rooms?checkInDate=${checkInDate}
+		&checkOutDate=${checkOutDate}&roomType=${roomType}&city=${city}`)
+        return response.data;
     }
     static async getAllUsers() {
         const response = await axios.get(`${this.BASE_URL}/users/all`,
