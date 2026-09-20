@@ -16,6 +16,9 @@ const RoomResult = ({ roomSearchResults }) => {
                                 <h3>{room.roomType}</h3>
                                 <p>Price: ${room.roomPrice} / night</p>
                                 <p>Description: {room.roomDescription}</p>
+                                <p>Location: {room.city},     <img
+                                    src={`https://flagsapi.com/${room.country}/flat/24.png`}
+                                /></p>
                             </div>
                             <div className='book-now-div'>
                                 {isAdmin ? (

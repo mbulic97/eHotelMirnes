@@ -31,14 +31,19 @@
     flex: 1;
     padding: 15px;
     text-align: start;
+
 }
 .room-details p{
     margin-bottom: 0px;
     margin-top: 0px;
+    display: flex;   
 }
 .room-details h3{
     margin-top: 0px;
     margin-bottom: 0px;
+}
+.room-details img{
+    margin-left: 5px;
 }
 .book-now-div {
     align-self: center;
