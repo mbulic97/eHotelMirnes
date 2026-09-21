@@ -130,6 +130,9 @@
     transition: background-color 0.3s;
     background-color: #003b95;
 }
+.home-search-button:hover {
+    background-color: rgb(37, 110, 188);
+}
 .search-field {
     padding-right: 5px;
     
@@ -140,6 +143,7 @@
     padding-left: 20px;
     padding-right: 20px;
 }
+
 @media (max-width: 900px) {
 .search-container{
     width: 260px;
