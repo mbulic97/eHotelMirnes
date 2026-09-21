@@ -7,7 +7,6 @@ import RoomSearch from '../common/RoomSearch';
 const AllRoomsPage = () => {
     const [rooms, setRooms] = useState([]);
     const [filteredRooms, setFilteredRooms] = useState([]);
-    //const [selectedRoomType, setSelectedRoomType] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [roomsPerPage] = useState(5);
     const [error, setError] = useState(null);
@@ -54,17 +53,7 @@ const AllRoomsPage = () => {
 
         <div>
             <h2>All Rooms</h2>
-            {/*<div className='all-room-filter-div'>
-                <label>Filter by Room Type:</label>
-                <select value={selectedRoomType} onChange={handleRoomTypeChange}>
-                    <option value="">All</option>
-                    {roomTypes.map((type) => (
-                        <option key={type} value={type}>
-                            {type}
-                        </option>
-                    ))}
-                </select>
-            </div>*/}
+            
             {error && <p className="error-message">{error}</p>}
             {
             <RoomSearch
