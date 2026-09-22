@@ -67,7 +67,11 @@ public class RoomController {
         Response response = roomService.updateRoom(roomId, roomRequest, photo);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
-
+    @GetMapping("/room-by-id/{roomId}")
+    public ResponseEntity<Response> getRoomById(@PathVariable Long roomId) {
+        Response response = roomService.getRoomById(roomId);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
     @GetMapping("/available-rooms")
     public ResponseEntity<Response> getAvailableRooms(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkInDate,

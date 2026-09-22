@@ -74,6 +74,22 @@ public class Utils {
         roomDTO.setTvAvailable(room.isTvAvailable());
         return roomDTO;
     }
+
+    public static RoomDTO mapRoomEntityToRoomDTOPlusBookings(Room room) {
+        RoomDTO roomDTO = new RoomDTO();
+
+        roomDTO.setId(room.getId());
+        roomDTO.setRoomType(room.getRoomType());
+        roomDTO.setRoomPrice(room.getRoomPrice());
+        roomDTO.setRoomPhotoUrl(room.getRoomPhotoUrl());
+        roomDTO.setRoomDescription(room.getRoomDescription());
+
+        if(room.getBookings() != null) {
+            roomDTO.setBookings(room.getBookings().stream().map(Utils::mapBookingEntityToBookingDTO).collect(Collectors.toList()));
+        }
+        return roomDTO;
+    }
+
     public static BookingDTO mapBookingEntityToBookingDTOPlusBookedRooms(Booking booking, boolean mapUser){
 
         BookingDTO bookingDTO = new BookingDTO();
@@ -127,4 +143,5 @@ public class Utils {
     public static List<BookingDTO> mapBookingListEntityToBookingListDTO(List<Booking> bookingList){
         return bookingList.stream().map(Utils::mapBookingEntityToBookingDTO).collect(Collectors.toList());
     }
+
 }
