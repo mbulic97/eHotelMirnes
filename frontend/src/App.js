@@ -12,6 +12,7 @@ import ManageUsersPage from './component/admin/ManageUsersPage';
 import ManageRoomsPage from './component/admin/ManageRoomsPage';
 import AddRoomPage from './component/admin/AddRoomPage';
 import { ProtectedRoute } from './service/guard';
+import ManageBookingsPage from './component/admin/ManageBookingsPage';
 function App() {
   return (
     <BrowserRouter>
@@ -34,6 +35,7 @@ function App() {
             <Route path='/admin/manage-users' element={<ProtectedRoute element={<ManageUsersPage />} />}></Route>
             <Route path='/admin/manage-rooms' element={<ProtectedRoute element={<ManageRoomsPage />} />}></Route>
             <Route path='/admin/add-room' element={<ProtectedRoute element={<AddRoomPage />} />}></Route>
+            <Route path='/admin/manage-bookings' element={<ProtectedRoute element={<ManageBookingsPage/>} />}></Route>
 
           </Routes>
         </div>

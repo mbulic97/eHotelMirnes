@@ -25,10 +25,10 @@ function Navbar(){
                 <li><NavLink to="/home" className={({isActive}) => isActive ? "active" : ""}>Home</NavLink></li>
                 <li><NavLink to="/rooms" className={({isActive}) => isActive ? "active" : ""}>Rooms</NavLink></li>
                 {(isUser && <li><NavLink to="/find-booking" className={({isActive}) => isActive ? "active" : ""}>My Bookings</NavLink></li>)}
-                {(isAdmin && <li><NavLink to="/find-booking" className={({isActive}) => isActive ? "active" : ""}>Bookings</NavLink></li>)}
+                {(isAdmin && <li><NavLink to="admin/manage-bookings" className={({isActive}) => isActive ? "active" : ""}>Bookings</NavLink></li>)}
 
                 {(isUser || isAdmin) && (<li><NavLink to="/profile" className={({isActive}) => isActive ? "active" : ""}>Profile</NavLink></li>)}
-                {isAdmin && <li><NavLink to="/admin" className={({isActive}) => isActive ? "active" : ""}>Admin</NavLink></li>}
+                {isAdmin && <li><NavLink to="/admin" end className={({isActive}) => isActive ? "active" : ""}>Admin</NavLink></li>}
                 {!isAuthenticated && <li><NavLink to="/login" className={({isActive}) => isActive ? "active" : ""}>Login</NavLink></li>}
                 {!isAuthenticated && <li><NavLink to="/register" className={({isActive}) => isActive ? "active" : ""}>Register</NavLink></li>}
                 
