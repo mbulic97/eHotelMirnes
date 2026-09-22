@@ -50,13 +50,16 @@ export default class ApiService {
         return response.data;
     }
 
-    static async getUserBookings(userId) {
-        const response = await axios.get(`${this.BASE_URL}/users/get-user-bookings/${userId}`, {
-            headers: this.getHeader()
-        })
-        return response.data;
+    
+    static async addRoom(formData) {
+        const result = await axios.post(`${this.BASE_URL}/rooms/add`, formData, {
+            headers: {
+                ...this.getHeader(),
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return result.data;
     }
-
     static async getAllRooms() {
         const result = await axios.get(`${this.BASE_URL}/rooms/all`)
         return result.data;
@@ -88,14 +91,26 @@ export default class ApiService {
 
         return response.data;
     }
-    static async addRoom(formData) {
-        const result = await axios.post(`${this.BASE_URL}/rooms/add`, formData, {
-            headers: {
-                ...this.getHeader(),
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        return result.data;
+    
+    static async getUserBookings(userId) {
+        const response = await axios.get(`${this.BASE_URL}/users/get-user-bookings/${userId}`, {
+            headers: this.getHeader()
+        })
+        return response.data;
+    }
+
+    static async getAllBookings(){
+        const response = await axios.get(`${this.BASE_URL}/bookings/all`,{
+            headers: this.getHeader()
+        }) 
+        return response.data;
+    }
+
+    static async cancelBooking(bookingId){
+        const result = await axios.delete(`${this.BASE_URL}/bookings/cancel/${bookingId}`, {
+            headers: this.getHeader()
+        })
+        return result.data
     }
 
 }
