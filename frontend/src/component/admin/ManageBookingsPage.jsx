@@ -19,9 +19,9 @@ const ManageBookingsPage = () => {
         };
         getBookings();
     }, []);
-    const handleDeleteBooking = async (bookingId/*, roomDescription*/) =>{
+    const handleDeleteBooking = async (bookingId, roomDescription) =>{
         const isDelete = window.confirm(
-            `Are you sure you want to delete ${bookingId}?`
+            `Are you sure you want to delete ${roomDescription}?`
         );
 
         if(!isDelete) return;

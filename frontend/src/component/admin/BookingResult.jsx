@@ -2,20 +2,7 @@ import React from 'react'
 import './BookingResult.css'
 
 const BookingResult = ({ bookings, onDeleteBooking }) => {
-    // const [room, setroom] = useState([]);
-    // useEffect(() => {
-    //         const getRoom = async () => {
-    //             try{
-    //                 const response = await ApiService.getAllBookings();
-    //                 console.log("ALL BOOKINGS:", response);
-    //                 setBookings(response.bookingList);
     
-    //             } catch (error) {
-    //                 console.error('Error fetching bookings:', error.message);
-    //             }
-    //         };
-    //         getBookings();
-    //     }, []);
     
   return (
         <section className="booking-results">
@@ -25,21 +12,23 @@ const BookingResult = ({ bookings, onDeleteBooking }) => {
                         <div key={booking.id} className="booking-list-item">
 
                             <div className="booking-details">
-                                <h3>{booking.name}</h3>
+                                <h3>{booking.room.roomDescription}</h3>
 
-                                <p>checkInDate: {booking.checkInDate}</p>
+                                <p>Booking ID: {booking.id}</p>
+                                <p>booking reference: {booking.bookingReference}</p>
+                                <p>Check-in:: {booking.checkInDate}</p>
+                                <p>Check-out: {booking.checkOutDate}</p>
 
-                                <p>checkOutDate: {booking.checkOutDate}</p>
-
-
-                                <p>bookingReference: {booking.bookingReference}</p>
+                                <p>Booked by: {booking.user.name}</p>
+                                <p>User ID: {booking.user.id}</p>
+                                <p>Room ID: {booking.room.id}</p>
                             </div>
 
                             <div className="booking-action">
                                 <button
                                     className="delete-booking-button"
                                     onClick={() =>
-                                        onDeleteBooking(booking.id/*, booking.roomDescription*/)
+                                        onDeleteBooking(booking.id, booking.room.roomDescription)
                                     }
                                 >
                                     Delete Booking
