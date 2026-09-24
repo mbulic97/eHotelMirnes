@@ -58,9 +58,9 @@ public class RoomController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Response> updateRoom(
             @PathVariable Long roomId,
-            @RequestPart(value = "photo", required = false) MultipartFile photo,
+            @RequestPart("roomRequest") RoomRequest roomRequest,
+            @RequestPart(value = "photo", required = false) MultipartFile photo){
             //@Valid @RequestBody RoomRequest roomRequest) {
-            @RequestBody RoomRequest roomRequest){
 
         log.info("Update - Room request: {}", roomRequest );
 

@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+.edit-room-form {
+    width: calc(85% - 20px);
+    width: 550px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+
+}
+.room-photo-preview, .room-photo {
+    width: 180px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 5px;
+    flex-shrink: 0; /* Prevents the image from shrinking when space is limited */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;   
+ }
+.update-button {
+    background-color:  #003b95;
+    color: white;
+    border: none;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+.update-button:hover {
+    background-color: rgb(37, 110, 188);
+}
+
+.update-button:active {
+    background-color: rgb(37, 110, 188);
+}
+
+.update-button:active {
+    transform: scale(0.96);
+}
+
+.edit-room-form:hover {
+    background-color: #F5F5F5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
+}
+.delete-button {
+
+    background-color: #c0392b;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.delete-button:hover {
+    background-color: #e74c3c;
+}
+.buttons{
+    padding: 15px;
+}

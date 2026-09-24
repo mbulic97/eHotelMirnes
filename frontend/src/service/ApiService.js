@@ -85,6 +85,16 @@ export default class ApiService {
         );
         return response.data;
     }
+    static async updateRoom(roomId, formData) {
+    
+        const result = await axios.put(`${this.BASE_URL}/rooms/update/${roomId}`, formData, {
+            headers: {
+                ...this.getHeader(),
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return result.data;
+    }
     static async deleteUser(userId) {
         const response = await axios.delete(
             `${this.BASE_URL}/users/delete/${userId}`,
