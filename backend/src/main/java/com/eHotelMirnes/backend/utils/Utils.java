@@ -101,7 +101,7 @@ public class Utils {
         bookingDTO.setNumOfChildren(booking.getNumOfChildren());
         bookingDTO.setTotalNumOfGuest(booking.getTotalNumOfGuest());
         bookingDTO.setBookingReference(booking.getBookingReference());
-        if(mapUser){
+        if(mapUser && booking.getUser() != null){
             bookingDTO.setUser(Utils.mapUserEntityToUserDTO(booking.getUser()));
         }
         if (booking.getRoom() != null){
@@ -120,7 +120,6 @@ public class Utils {
     }
     public static BookingDTO mapBookingEntityToBookingDTO(Booking booking){
         BookingDTO bookingDTO = new BookingDTO();
-
         bookingDTO.setId(booking.getId());
         bookingDTO.setCheckInDate(booking.getCheckInDate());
         bookingDTO.setCheckOutDate(booking.getCheckOutDate());
@@ -142,6 +141,11 @@ public class Utils {
     }
     public static List<BookingDTO> mapBookingListEntityToBookingListDTO(List<Booking> bookingList){
         return bookingList.stream().map(Utils::mapBookingEntityToBookingDTO).collect(Collectors.toList());
+    }
+    public static List<BookingDTO> mapBookingListEntityToBookingDTOPlusBookedRooms(List<Booking> bookingList){
+        return bookingList.stream()
+                .map(booking -> mapBookingEntityToBookingDTOPlusBookedRooms(booking, true))
+                .collect(Collectors.toList());
     }
 
 }
