@@ -12,6 +12,8 @@ const UserResult = ({ users, onDeleteUser }) => {
                             <div className="user-details">
                                 <h3>{user.name}</h3>
 
+                                <p>ID: {user.id}</p>
+
                                 <p>Email: {user.email}</p>
 
                                 <p>Phone Number: {user.phoneNumber}</p>
