@@ -36,6 +36,7 @@ function App() {
             <Route path='/admin/manage-rooms' element={<ProtectedRoute element={<ManageRoomsPage />} />}></Route>
             <Route path='/admin/add-room' element={<ProtectedRoute element={<AddRoomPage />} />}></Route>
             <Route path='/admin/manage-bookings' element={<ProtectedRoute element={<ManageBookingsPage/>} />}></Route>
+            <Route path='/manage-bookings' element={<ProtectedRoute element={<ManageBookingsPage/>} />}></Route>
 
           </Routes>
         </div>
