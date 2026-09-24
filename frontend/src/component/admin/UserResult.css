@@ -4,7 +4,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     display: flex;
-
+    transition: background-color 0.3s;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -26,4 +26,10 @@ font-weight: 600;
 
 .delete-user-button:hover {
     background-color: #e74c3c;
+}
+
+.user-list-item:hover {
+    background-color: #F5F5F5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    
 }

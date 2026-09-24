@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import ApiService from '../../service/ApiService'
 import BookingResult from './BookingResult';
+import Pagination from '../common/Pagination';
 
 const ManageBookingsPage = () => {
 
     const [bookings, setBookings] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [bookingsPerPage] = useState(5);
 
     useEffect(() => {
         const getBookings = async () => {
@@ -36,11 +39,28 @@ const ManageBookingsPage = () => {
             console.error("Error deleting booking:", error);
         }
     };
+
+    const indexOfLastBooking = currentPage * bookingsPerPage;
+    const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
+    const currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div>
       <h2>Manage Bookings</h2>
-      <BookingResult bookings={bookings}
-      onDeleteBooking={handleDeleteBooking}/>
+      <BookingResult 
+        bookings={currentBookings}
+        onDeleteBooking={handleDeleteBooking}
+        />
+        <Pagination
+            roomsPerPage={bookingsPerPage}
+            totalRooms={bookings.length}
+            currentPage={currentPage}
+            paginate={paginate}
+        />
+
+        
+
     </div>
   )
 }
