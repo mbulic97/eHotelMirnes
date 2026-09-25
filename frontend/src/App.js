@@ -14,6 +14,7 @@ import AddRoomPage from './component/admin/AddRoomPage';
 import { ProtectedRoute } from './service/guard';
 import ManageBookingsPage from './component/admin/ManageBookingsPage';
 import EditRoomPage from './component/admin/EditRoomPage';
+import EditProfilePage from './component/profile/EditProfilePage';
 function App() {
   return (
     <BrowserRouter>
@@ -29,6 +30,7 @@ function App() {
 
             {/* Protected Routes */}
             <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />}></Route>
+            <Route path='/profile/edit-profile/:userId' element={<ProtectedRoute element={<EditProfilePage />} />}></Route>
 
             {/* Admin Routes */}
 

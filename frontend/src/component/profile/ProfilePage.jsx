@@ -37,7 +37,7 @@ const ProfilePage = () => {
         <div className="profile-page">
             {user && <h2>Hi, {user.name}</h2>}
             <div className="profile-actions">
-                <button className="edit-profile-button" >Edit Profile</button>
+                <button className="edit-profile-button" onClick={() => navigate(`/profile/edit-profile/${user.id}`)}>Edit Profile</button>
                 <button className="logout-button" onClick={handleLogout}>Logout</button>
             </div>
             {error && <p className="error-message">{error}</p>}

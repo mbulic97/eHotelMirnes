@@ -77,14 +77,6 @@ export default class ApiService {
 		&checkOutDate=${checkOutDate}&roomType=${roomType}&city=${city}`)
         return response.data;
     }
-    static async getAllUsers() {
-        const response = await axios.get(`${this.BASE_URL}/users/all`,
-            {
-                headers: this.getHeader()
-            }
-        );
-        return response.data;
-    }
     static async updateRoom(roomId, formData) {
     
         const result = await axios.put(`${this.BASE_URL}/rooms/update/${roomId}`, formData, {
@@ -95,6 +87,23 @@ export default class ApiService {
         });
         return result.data;
     }
+
+    static async getAllUsers() {
+        const response = await axios.get(`${this.BASE_URL}/users/all`,
+            {
+                headers: this.getHeader()
+            }
+        );
+        return response.data;
+    }
+
+    static async updateUser(userId, formData) {
+        const result = await axios.put(`${this.BASE_URL}/users/update/${userId}`, formData, {
+            headers:  this.getHeader()
+        });
+        return result.data;
+    }
+
     static async deleteUser(userId) {
         const response = await axios.delete(
             `${this.BASE_URL}/users/delete/${userId}`,

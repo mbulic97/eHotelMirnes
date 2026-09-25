@@ -77,16 +77,19 @@ const EditRoomPage = () => {
                 
                 setTimeout(() => {
                     setSuccess('');
+                    setLoading(false);
                     navigate('/admin/manage-rooms');
                 }, 3000);
             }
             setTimeout(() => setSuccess(''), 5000);
         } catch (error) {
+            setLoading(false)
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
-        } finally {
-            setLoading(false);
-        }
+        } 
+        //finally {
+        //     setLoading(false);
+        // }
     };
 
     const handleDelete = async () => {
@@ -110,8 +113,7 @@ const EditRoomPage = () => {
   return (
     <div className="edit-room-container">
             <h2>Edit Room</h2>
-            {error && <p className="error-message">{error}</p>}
-            {success && <p className="success-message">{success}</p>}
+            
             <div className="edit-room-form">
                 <div className="form-group">
                     {preview ? (
@@ -157,10 +159,13 @@ const EditRoomPage = () => {
                     <button 
                         className="update-button" 
                         onClick={handleUpdate}
+                        style={{cursor: loading ? 'not-allowed' : 'pointer'}}
                         disabled={loading}
                         >
                            {loading ? 'Updating...' : 'Update Room'}</button>
                     <button className="delete-button" onClick={handleDelete}>Delete Room</button>
+                    {error && <p className="error-message">{error}</p>}
+                    {success && <p className="success-message">{success}</p>}
                 </div>
                 
             </div>
