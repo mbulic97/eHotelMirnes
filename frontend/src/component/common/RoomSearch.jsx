@@ -3,13 +3,28 @@ import ApiService from '../../service/ApiService'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker';
 import '../common/RoomSearch.css'
+import { useSearchParams } from 'react-router-dom';
 
 const RoomSearch = ({ handleSearchResult }) => {
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [searchParams] = useSearchParams();
+
+    const [startDate, setStartDate] = useState(
+        searchParams.get('checkInDate')
+        ? new Date(searchParams.get('checkInDate'))
+        : null
+    );
+    const [endDate, setEndDate] = useState(
+        searchParams.get('checkOutDate')
+            ? new Date(searchParams.get('checkOutDate'))
+            : null
+    );
     const [error, setError] = useState('');
-    const [roomType, setRoomType] = useState('');
-    const [city, setCity] = useState('');
+    const [roomType, setRoomType] = useState(
+        searchParams.get('roomType') || ''
+    );
+    const [city, setCity] = useState(
+        searchParams.get('city') || ''
+    );
 
     
     const showError = (message, timeout = 5000) => {

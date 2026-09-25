@@ -3,6 +3,7 @@ import ApiService from '../../service/ApiService'
 import Pagination from '../common/Pagination';
 import RoomResult from '../common/RoomResult';
 import RoomSearch from '../common/RoomSearch';
+import { useSearchParams } from 'react-router-dom';
 
 const AllRoomsPage = () => {
     const [rooms, setRooms] = useState([]);
@@ -10,6 +11,8 @@ const AllRoomsPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [roomsPerPage] = useState(5);
     const [error, setError] = useState(null);
+
+    const [searchParams] = useSearchParams();
 
     const handleSearchResult = (results) => {
         setFilteredRooms(results)
@@ -20,11 +23,29 @@ const AllRoomsPage = () => {
     useEffect(() => {
         const fetchRooms = async () => {
             try {
-                const response = await ApiService.getAllRooms();
+                const checkInDate = searchParams.get('checkInDate');
+                const checkOutDate = searchParams.get('checkOutDate');
+                const roomType = searchParams.get('roomType');
+                const city = searchParams.get('city');
+            
+                let response
+                if (checkInDate && checkOutDate && roomType && city) {
 
+                    response = await ApiService.getAvailableRooms(
+                        checkInDate,
+                        checkOutDate,
+                        roomType,
+                        city
+                    );
+
+                } else{
+                    response = await ApiService.getAllRooms();
+                }
+                
                 console.log("ALL ROOMS:", response);
 
                 const allRooms = response.roomList;
+                //const allRooms = response?.roomList || [];
                 setRooms(allRooms);
                 setFilteredRooms(allRooms);
             } catch (error) {
@@ -36,7 +57,7 @@ const AllRoomsPage = () => {
         
         fetchRooms();
 
-    }, []);
+    }, [searchParams]);
 
     
 

@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import RoomCarousel from './RoomCarousel';
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
+    const navigate = useNavigate();
     const [weather, setWeather] = useState(null);
     const [error, setError] = useState(null);
     const isUser = ApiService.isUser();
@@ -13,7 +15,15 @@ const HomePage = () => {
     const [rooms, setRooms] = useState([]);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [roomType, setRoomType] = useState('');
+    const [city, setCity] = useState('');
 
+    const showError = (message, timeout = 5000) => {
+        setError(message);
+        setTimeout(() => {
+            setError('');
+        }, timeout);
+    };
     useEffect(() => {
         const getWeather = async () => {
             try {
@@ -51,6 +61,58 @@ const HomePage = () => {
 
         fetchRooms();
     }, []);
+
+    const handleInternalSearch = async () => {
+
+        if (!startDate) {
+            showError('Please select a check-in date.');
+            return false;
+        }
+
+        if (!endDate) {
+            showError('Please select a check-out date.');
+            return false;
+        }
+
+        if (!roomType) {
+            showError('Please select a room type.');
+            return false;
+        }
+
+        if (!city) {
+            showError('Please select a city.');
+            return false;
+        }
+        const params = new URLSearchParams();
+        const formattedStartDate = startDate ? startDate.toISOString().split('T')[0] : null;
+        const formattedEndDate = endDate ? endDate.toISOString().split('T')[0] : null;
+        if (formattedStartDate) params.set("checkInDate", formattedStartDate);
+        if (formattedEndDate) params.set("checkOutDate", formattedEndDate);
+        if (roomType) params.set("roomType", roomType);
+        if (city) params.set("city", city);
+
+        navigate(`/rooms?${params.toString()}`);
+        // try {
+        //     // Convert 
+        //     const formattedStartDate = startDate ? startDate.toISOString().split('T')[0] : null;
+        //     const formattedEndDate = endDate ? endDate.toISOString().split('T')[0] : null;
+        //     const response = await ApiService.getAvailableRooms(formattedStartDate,formattedEndDate,roomType,city);
+        //     console.log("filter rooms", response);
+        //     if(response.statusCode === 200){
+        //         handleSearchResult(response.roomList);
+
+        //         if(response.roomList.length ===0 ){
+        //             showError('No rooms available for the selected dates and room type.');
+        //             return
+        //         }
+        //         else
+        //         setError('');
+        //     }
+        // } catch(error) {
+        //     showError("Unown error occured: " + error.response?.data?.message);
+        // }
+    };
+    
     return (
         <div className="home">
             <section>
@@ -102,10 +164,23 @@ const HomePage = () => {
                                     <input
                                         className="search-input"
                                         type="text"
-                                        placeholder="Room Type or Description:"
+                                        placeholder="Search room type"
+                                        value={roomType}
+                                        onChange={(e) => setRoomType(e.target.value)}
                                     />
                                 </div>
-                                <button className="home-search-button" >
+
+                                <div className="search-field">
+                                    <input
+                                        className="search-input"
+                                        type="text"
+                                        placeholder="Search room city"
+                                        value={city}
+                                        onChange={(e) => setCity(e.target.value)}
+                                    />
+                                </div>
+
+                                <button className="home-search-button" onClick={handleInternalSearch}>
                                     Search
                                 </button>
                             </div>
