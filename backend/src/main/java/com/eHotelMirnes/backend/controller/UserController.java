@@ -51,6 +51,10 @@ public class UserController {
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String phoneNumber
     ) {
+        log.info("Updated name: {}", name );
+        log.info("Updated email: {}", email );
+        log.info("Updated number: {}", phoneNumber );
+
         User user = new User();
         user.setId(userId);
         user.setName(name);
@@ -63,7 +67,6 @@ public class UserController {
     }
     @GetMapping("/get-user-bookings/{userId}")
     public ResponseEntity<Response> getUserBookingHistory(@PathVariable Long userId){
-        log.info("usao je ger");
         Response response = userService.getUserBookingHistory(userId.toString());
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }

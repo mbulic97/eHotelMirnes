@@ -105,7 +105,7 @@ const EditProfilePage = () => {
                         style={{cursor: loading ? 'not-allowed' : 'pointer'}}
                         disabled={loading}
                         >
-                           {loading ? 'Updating...' : 'Update Room'}</button>
+                           {loading ? 'Updating...' : 'Update Profile'}</button>
                     {/* <button className="delete-button" onClick={handleDelete}>Delete Room</button> */}
                     {error && <p className="error-message">{error}</p>}
                     {success && <p className="success-message">{success}</p>}
