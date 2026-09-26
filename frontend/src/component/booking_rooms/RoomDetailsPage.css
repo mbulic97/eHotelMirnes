@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+.room-details-booking {
+    width: calc(85% - 20px);
+    width: 550px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    padding-bottom: 15px;
+
+}
+.room-details-image {
+    width: 360px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 5px;
+    flex-shrink: 0; /* Prevents the image from shrinking when space is limited */
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 15px;   
+ }
+.book-now-button, .go-back-button, .accept-booking, .confirm-booking {
+    background-color:  #003b95;
+    color: white;
+    border: none;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+.confirm-booking{
+    margin-top: 15px;
+}
+.book-now-button:hover , .go-back-button:hover, .accept-booking:hover, .confirm-booking:hover {
+    background-color: rgb(37, 110, 188);
+}
+
+.book-now-button:active , .go-back-button:active, .accept-booking:active, .confirm-booking:active {
+    background-color: rgb(37, 110, 188);
+}
+
+/* .update-button:active {
+    transform: scale(0.96);
+} */
+.date-picker-container{
+    display: flex;
+    flex-direction: column;
+}
+.room-details-booking:hover {
+    background-color: #F5F5F5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.detail-search-field{
+    width: 250px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+}
+.guest-div{
+    display: flex;
+    flex-direction: column;
+}
+.guest-div input{
+    width: 250px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.total-price{
+    display: flex;
+    flex-direction: column;
+}
+.booking-info, .total-price{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 270px;
+}
+.booking-success-message {
+    color: #198754;
+}

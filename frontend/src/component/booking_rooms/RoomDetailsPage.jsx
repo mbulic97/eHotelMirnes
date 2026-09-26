@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import ApiService from '../../service/ApiService';
 import DatePicker from 'react-datepicker';
+import './RoomDetailsPage.css'
 
 const RoomDetailsPage = () => {
     const navigate = useNavigate();
@@ -63,7 +64,7 @@ const RoomDetailsPage = () => {
 
     const acceptBooking = async () => {
     try {
-        setLoading(true);
+      setLoading(true);
       const startDate = new Date(checkInDate);
       const endDate = new Date(checkOutDate);
 
@@ -90,18 +91,25 @@ const RoomDetailsPage = () => {
       if (response.statusCode === 200) {
         setBookingReference(response.bookingReference); 
         setShowMessage(true); // Show message
+        setLoading(true);
         // Hide message and navigate to homepage after 5 seconds
         setTimeout(() => {
           setShowMessage(false);
+          setLoading(false)
           navigate('/rooms'); // Navigate to rooms
-        }, 10000);
+        }, 5000);
       }
     } catch (error) {
       setErrorMessage(error.response?.data?.message || error.message);
-      setTimeout(() => setErrorMessage(''), 5000); // Clear error message after 5 seconds
-    } finally {
+      setLoading(true);
+      setTimeout(() => {
+        setErrorMessage('')
         setLoading(false);
+    }, 5000); // Clear error message after 5 seconds
     }
+    // finally {
+    //     setLoading(false);
+    // }
   };
 
 //   if (loading) {
@@ -119,107 +127,114 @@ const RoomDetailsPage = () => {
   const { roomType, roomPrice, roomPhotoUrl, description, bookings } = roomDetails;
 
   return (
-    <div className="room-details-booking">
-      
-      <h2>Room Details</h2>
-      <br />
-      <img src={roomPhotoUrl} alt={roomType} className="room-details-image" />
-      <div className="room-details-info">
-        <h3>{roomType}</h3>
-        <p>Price: ${roomPrice} / night</p>
-        <p>{description}</p>
-      </div>
-      {bookings && bookings.length > 0 && (
-        <div>
-          <h3>Existing Booking Details</h3>
-          <ul className="booking-list">
-            {bookings.map((booking, index) => (
-              <li key={booking.id} className="booking-item">
-                <span className="booking-number">Booking {index + 1} </span>
-                <span className="booking-text">Check-in: {booking.checkInDate} </span>
-                <span className="booking-text">Out: {booking.checkOutDate}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      <div className="booking-info">
-        <button className="book-now-button" onClick={() => setShowDatePicker(true)}>Book Now</button>
-        <button className="go-back-button" onClick={() => setShowDatePicker(false)}>Go Back</button>
-        {showDatePicker && (
-          <div className="date-picker-container">
-            <DatePicker
-              className="detail-search-field"
-              selected={checkInDate}
-              onChange={(date) => setCheckInDate(date)}
-              selectsStart
-              startDate={checkInDate}
-              endDate={checkOutDate}
-              placeholderText="Check-in Date"
-              dateFormat="dd/MM/yyyy"
-            />
-            <DatePicker
-              className="detail-search-field"
-              selected={checkOutDate}
-              onChange={(date) => setCheckOutDate(date)}
-              selectsEnd
-              startDate={checkInDate}
-              endDate={checkOutDate}
-              minDate={checkInDate}
-              placeholderText="Check-out Date"
-              dateFormat="dd/MM/yyyy"
-            />
 
-            <div className='guest-container'>
-              <div className="guest-div">
-                <label>Adults:</label>
-                <input
-                  type="number"
-                  min="1"
-                  value={numAdults}
-                  onChange={(e) => setNumAdults(parseInt(e.target.value))}
-                />
+      <div >
+          <h2>Room Details</h2>
+          <div className="room-details-booking">
+              {}
+
+              <br />
+              <img src={roomPhotoUrl} alt={roomType} className="room-details-image" />
+              <div className="room-details-info">
+                  <h3>{roomType}</h3>
+                  <p>Price: ${roomPrice} / night</p>
+                  <p>{description}</p>
               </div>
-              <div className="guest-div">
-                <label>Children:</label>
-                <input
-                  type="number"
-                  min="0"
-                  value={numChildren}
-                  onChange={(e) => setNumChildren(parseInt(e.target.value))}
-                />
+              {bookings && bookings.length > 0 && (
+                  <div>
+                      <h3>Existing Booking Details</h3>
+                      <ul className="booking-list">
+                          {bookings.map((booking, index) => (
+                              <li key={booking.id} className="booking-item">
+                                  <span className="booking-number">Booking {index + 1} </span>
+                                  <span className="booking-text">Check-in: {booking.checkInDate} </span>
+                                  <span className="booking-text">Out: {booking.checkOutDate}</span>
+                                  <br />
+                              </li>
+                          ))}
+                      </ul>
+                  </div>
+              )}
+              <div className="booking-info">
+                  <div className='buttons'>
+                      <button className="book-now-button" onClick={() => setShowDatePicker(true)}>Book Now</button>
+                      <button className="go-back-button" onClick={() => setShowDatePicker(false)}>Go Back</button>
+                  </div>
+
+                  {showDatePicker && (
+                      <div className="date-picker-container">
+                          <DatePicker
+                              className="detail-search-field"
+                              selected={checkInDate}
+                              onChange={(date) => setCheckInDate(date)}
+                              selectsStart
+                              startDate={checkInDate}
+                              endDate={checkOutDate}
+                              placeholderText="Check-in Date"
+                              dateFormat="dd/MM/yyyy"
+                          />
+                          <DatePicker
+                              className="detail-search-field"
+                              selected={checkOutDate}
+                              onChange={(date) => setCheckOutDate(date)}
+                              selectsEnd
+                              startDate={checkInDate}
+                              endDate={checkOutDate}
+                              minDate={checkInDate}
+                              placeholderText="Check-out Date"
+                              dateFormat="dd/MM/yyyy"
+                          />
+
+                          <div className='guest-container'>
+                              <div className="guest-div">
+                                  <label>Adults:</label>
+                                  <input
+                                      type="number"
+                                      min="1"
+                                      value={numAdults}
+                                      onChange={(e) => setNumAdults(parseInt(e.target.value))}
+                                  />
+                              </div>
+                              <div className="guest-div">
+                                  <label>Children:</label>
+                                  <input
+                                      type="number"
+                                      min="0"
+                                      value={numChildren}
+                                      onChange={(e) => setNumChildren(parseInt(e.target.value))}
+                                  />
+                              </div>
+                              <button className="confirm-booking" onClick={handleBookingReference}>Confirm Booking</button>
+                          </div>
+                      </div>
+                  )}
+                  {totalPrice > 0 && (
+                      <div className="total-price">
+                          <p>Total Price: ${totalPrice}</p>
+                          <p>Total Guests: {totalGuests}</p>
+                          <button
+                              onClick={acceptBooking}
+                              className="accept-booking"
+                              style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
+                              disabled={loading}
+                          >
+                              {loading ? 'Updating...' : 'Accept Booking'}
+                          </button>
+                          {error && <p className="error-message">{error}</p>}
+                          {showMessage && (
+                              <p className="booking-success-message">  
+                                Booking successful! Your booking reference is {bookingReference}.                              </p>
+                          )}
+                          {errorMessage && (
+                              <p className="error-message">
+                                  {errorMessage}
+                              </p>
+                          )}
+                      </div>
+                  )}
               </div>
-              <button className="confirm-booking" onClick={handleBookingReference}>Confirm Booking</button>
-            </div>
           </div>
-        )}
-        {totalPrice > 0 && (
-          <div className="total-price">
-            <p>Total Price: ${totalPrice}</p>
-            <p>Total Guests: {totalGuests}</p>
-            <button
-                onClick={acceptBooking} 
-                className="accept-booking"
-                style={{cursor: loading ? 'not-allowed' : 'pointer'}}
-                disabled={loading}
-                >
-                {loading ? 'Updating...' : 'Accept Booking'}
-                </button>
-            {error && <p className="error-message">{error}</p>}
-            {showMessage && (
-                <p className="booking-success-message">
-                    Booking successful! Confirmation code: {bookingReference}. An SMS and email of your booking details have been sent to you.
-                </p>
-            )}
-            {errorMessage && (
-                <p className="error-message">
-                    {errorMessage}
-                </p>
-            )}
-          </div>
-        )}
       </div>
-    </div>
   )
 }
 
