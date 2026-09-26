@@ -15,6 +15,7 @@ import { ProtectedRoute } from './service/guard';
 import ManageBookingsPage from './component/admin/ManageBookingsPage';
 import EditRoomPage from './component/admin/EditRoomPage';
 import EditProfilePage from './component/profile/EditProfilePage';
+import RoomDetailsPage from './component/booking_rooms/RoomDetailsPage';
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +33,7 @@ function App() {
             {/* Protected Routes */}
             <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />}></Route>
             <Route path='/profile/edit-profile/:userId' element={<ProtectedRoute element={<EditProfilePage />} />}></Route>
+            <Route path='/room-details-book/:roomId' element={<ProtectedRoute element={<RoomDetailsPage />} />}></Route>
 
             {/* Admin Routes */}
 

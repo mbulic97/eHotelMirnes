@@ -146,6 +146,9 @@ const HomePage = () => {
                                         className="search-input"
                                         selected={startDate}
                                         onChange={(date) => setStartDate(date)}
+                                        selectsStart
+                                        startDate={startDate}
+                                        endDate={endDate}
                                         dateFormat="dd/MM/yyyy"
                                         placeholderText="Select Check-in Date"
                                     />
@@ -155,6 +158,10 @@ const HomePage = () => {
                                         className="search-input"
                                         selected={endDate}
                                         onChange={(date) => setEndDate(date)}
+                                        selectsEnd
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        minDate={startDate}
                                         dateFormat="dd/MM/yyyy"
                                         placeholderText="Select Check-out Date"
                                     />

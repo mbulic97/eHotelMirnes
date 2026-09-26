@@ -83,6 +83,9 @@ const RoomSearch = ({ handleSearchResult }) => {
                     <DatePicker
                         selected={startDate}
                         onChange={(date) => setStartDate(date)}
+                        selectsStart
+                        startDate={startDate}
+                        endDate={endDate}
                         className="room-search-input"
                         dateFormat="dd/MM/yyyy"
                         placeholderText="Select Check-in Date"
@@ -92,6 +95,10 @@ const RoomSearch = ({ handleSearchResult }) => {
                     <DatePicker
                         selected={endDate}
                         onChange={(date) => setEndDate(date)}
+                        selectsEnd
+                        startDate={startDate}
+                        endDate={endDate}
+                        minDate={startDate}
                         className="room-search-input"
                         dateFormat="dd/MM/yyyy"
                         placeholderText="Select Check-out Date"

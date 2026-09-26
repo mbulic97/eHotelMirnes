@@ -4,15 +4,17 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     display: flex;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, box-shadow 0.3s;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding-left: 10px;
     padding-right: 10px;
+    
 }
 
 .delete-booking-button {
+    border: none;
 
     text-decoration: none;
     background-color: #c0392b;

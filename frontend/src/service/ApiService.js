@@ -138,5 +138,11 @@ export default class ApiService {
         })
         return result.data
     }
+    static async bookRoom(roomId, userId, booking) {
+        const response = await axios.post(`${this.BASE_URL}/bookings/book-room/${roomId}/${userId}`, booking, {
+            headers: this.getHeader()
+        })
+        return response.data
+    }
 
 }
