@@ -10,6 +10,11 @@ const EditRoomPage = () => {
         roomType: '',
         roomPrice: '',
         roomDescription: '',
+        wifiAvailable: false,
+        parkingAvailable: false,
+        privateBathroom: false,
+        airConditioning: false,
+        tvAvailable: false
     })
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
@@ -26,6 +31,11 @@ const EditRoomPage = () => {
                     roomType: response.room.roomType,
                     roomPrice: response.room.roomPrice,
                     roomDescription: response.room.roomDescription,
+                    wifiAvailable: response.room.wifiAvailable,
+                    parkingAvailable: response.room.parkingAvailable,
+                    privateBathroom: response.room.privateBathroom,
+                    airConditioning: response.room.airConditioning,
+                    tvAvailable: response.room.tvAvailable
                 });
             } catch (error) {
                 setError(error.response?.data?.message || error.message);
@@ -34,10 +44,10 @@ const EditRoomPage = () => {
         fetchRoomDetails();
     },[roomId]);
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type, checked } = e.target;
         setRoomDetails(prevState => ({
             ...prevState,
-            [name]: value,
+            [name]: type === 'checkbox' ? checked : value,
         }));
     };
 
@@ -60,6 +70,11 @@ const EditRoomPage = () => {
                 roomType: roomDetails.roomType,
                 roomPrice: roomDetails.roomPrice,
                 roomDescription: roomDetails.roomDescription,
+                wifiAvailable: roomDetails.wifiAvailable,
+                parkingAvailable: roomDetails.parkingAvailable,
+                privateBathroom: roomDetails.privateBathroom,
+                airConditioning: roomDetails.airConditioning,
+                tvAvailable: roomDetails.tvAvailable
             };
             formData.append(
 
@@ -155,6 +170,61 @@ const EditRoomPage = () => {
                         onChange={handleChange}
                     ></textarea>
                 </div>
+
+                <div className="form-group">
+
+                  <p>Room Facilities</p>
+                  <label>
+                      <input
+                          type="checkbox"
+                          name="wifiAvailable"
+                          checked={roomDetails.wifiAvailable}
+                          onChange={handleChange}
+                      />
+                      WiFi
+                  </label>
+                  <label>
+                      <input
+                          type="checkbox"
+                          name="parkingAvailable"
+                          checked={roomDetails.parkingAvailable}
+                          onChange={handleChange}
+                      />
+                      Parking
+                  </label>
+
+                  <label>
+                      <input
+                          type="checkbox"
+                          name="privateBathroom"
+                          checked={roomDetails.privateBathroom}
+                          onChange={handleChange}
+                      />
+                      Private Bathroom
+                  </label>
+
+                  <label>
+                      <input
+                          type="checkbox"
+                          name="airConditioning"
+                          checked={roomDetails.airConditioning}
+                          onChange={handleChange}
+                      />
+                      Air Conditioning
+                  </label>
+
+                  <label>
+                      <input
+                          type="checkbox"
+                          name="tvAvailable"
+                          checked={roomDetails.tvAvailable}
+                          onChange={handleChange}
+                      />
+                      TV
+                  </label>
+                </div>
+                
+                
                 <div className='buttons'>
                     <button 
                         className="update-button" 

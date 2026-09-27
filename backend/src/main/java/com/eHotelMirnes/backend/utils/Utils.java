@@ -83,7 +83,11 @@ public class Utils {
         roomDTO.setRoomPrice(room.getRoomPrice());
         roomDTO.setRoomPhotoUrl(room.getRoomPhotoUrl());
         roomDTO.setRoomDescription(room.getRoomDescription());
-
+        roomDTO.setWifiAvailable(room.isWifiAvailable());
+        roomDTO.setParkingAvailable(room.isParkingAvailable());
+        roomDTO.setPrivateBathroom(room.isPrivateBathroom());
+        roomDTO.setAirConditioning(room.isAirConditioning());
+        roomDTO.setTvAvailable(room.isTvAvailable());
         if(room.getBookings() != null) {
             roomDTO.setBookings(room.getBookings().stream().map(Utils::mapBookingEntityToBookingDTO).collect(Collectors.toList()));
         }
@@ -101,6 +105,7 @@ public class Utils {
         bookingDTO.setNumOfChildren(booking.getNumOfChildren());
         bookingDTO.setTotalNumOfGuest(booking.getTotalNumOfGuest());
         bookingDTO.setBookingReference(booking.getBookingReference());
+
         if(mapUser && booking.getUser() != null){
             bookingDTO.setUser(Utils.mapUserEntityToUserDTO(booking.getUser()));
         }
@@ -112,6 +117,10 @@ public class Utils {
             roomDTO.setRoomPrice(booking.getRoom().getRoomPrice());
             roomDTO.setRoomPhotoUrl(booking.getRoom().getRoomPhotoUrl());
             roomDTO.setRoomDescription(booking.getRoom().getRoomDescription());
+            roomDTO.setParkingAvailable(booking.getRoom().isParkingAvailable());
+            roomDTO.setPrivateBathroom(booking.getRoom().isPrivateBathroom());
+            roomDTO.setAirConditioning(booking.getRoom().isAirConditioning());
+            roomDTO.setTvAvailable(booking.getRoom().isTvAvailable());
             bookingDTO.setRoom(roomDTO);
 
         }
