@@ -91,3 +91,22 @@
 .booking-success-message {
     color: #198754;
 }
+.facilities-list{
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    margin: 0x;
+    
+}
+
+.facilities-list li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 240px;
+    gap: 8px;
+    padding-top: 5px;
+}
+
+
+

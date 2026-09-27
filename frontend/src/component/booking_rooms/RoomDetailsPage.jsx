@@ -3,7 +3,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 import ApiService from '../../service/ApiService';
 import DatePicker from 'react-datepicker';
 import './RoomDetailsPage.css'
-
+import {
+    FaWifi,
+    FaTv,
+    FaParking,
+    FaSnowflake,
+    FaBath
+} from 'react-icons/fa';
 const RoomDetailsPage = () => {
     const navigate = useNavigate();
     const { roomId } = useParams();
@@ -139,6 +145,47 @@ const RoomDetailsPage = () => {
                   <h3>{roomType}</h3>
                   <p>Price: ${roomPrice} / night</p>
                   <p>{description}</p>
+              </div>
+              <div className="room-details-facilities">
+                  <h3>Room Facilities</h3>
+                  <ul className='facilities-list'>
+                    { roomDetails.wifiAvailable  && (
+                        <li>
+                            <FaWifi/>Wifi
+                        </li>
+                    )}
+
+                    {roomDetails.parkingAvailable && (
+                        <li>
+                            <FaParking/>Parking
+                        </li>
+                    )}
+
+                    {roomDetails.privateBathroom && (
+                        <li>
+                            <FaBath/>Bathroom
+                        </li>
+                    )}
+
+                    {roomDetails.airConditioning && (
+                        <li>
+                            <FaSnowflake/>Air Conditioner
+                        </li>
+                    )}
+
+                    {roomDetails.tvAvailable && (
+                        <li>
+                            <FaTv/>TV
+                        </li>
+                    )}
+                    {!roomDetails.wifiAvailable && 
+                        !roomDetails.parkingAvailable &&
+                        !roomDetails.privateBathroom &&
+                        !roomDetails.airConditioning &&
+                        !roomDetails.tvAvailable && (
+                        <li>No facilities available</li>
+                    )}
+                  </ul>
               </div>
               {bookings && bookings.length > 0 && (
                   <div>

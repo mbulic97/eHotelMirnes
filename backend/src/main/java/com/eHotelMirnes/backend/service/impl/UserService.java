@@ -70,8 +70,9 @@ public class UserService implements IUserService{
         Response response = new Response();
 
         try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
             var user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new OurException("User not found"));
+
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
 
             var token = jwtUtils.generateToken(user);
             response.setStatusCode(HttpStatus.OK.value());
@@ -83,11 +84,12 @@ public class UserService implements IUserService{
         } catch(BadCredentialsException e){
             response.setStatusCode(HttpStatus.UNAUTHORIZED.value());
             response.setMessage("Invalid email or password");
-        } catch (OurException e) {
+        }
+        catch (OurException e) {
             response.setStatusCode(HttpStatus.NOT_FOUND.value());
             response.setMessage(e.getMessage());
         } catch (Exception e){
-            log.info("Status code: 500 - User login: " + loginRequest.getEmail());
+            //log.info("Status code: 500 - User login: " + loginRequest.getEmail());
             response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMessage("Failed to login. Please try again.");
         }
