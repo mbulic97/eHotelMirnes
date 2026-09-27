@@ -16,6 +16,7 @@ import ManageBookingsPage from './component/admin/ManageBookingsPage';
 import EditRoomPage from './component/admin/EditRoomPage';
 import EditProfilePage from './component/profile/EditProfilePage';
 import RoomDetailsPage from './component/booking_rooms/RoomDetailsPage';
+import MyBookingsPage from './component/booking_rooms/MyBookingsPage';
 function App() {
   return (
     <BrowserRouter>
@@ -34,6 +35,7 @@ function App() {
             <Route path='/profile' element={<ProtectedRoute element={<ProfilePage />} />}></Route>
             <Route path='/profile/edit-profile/:userId' element={<ProtectedRoute element={<EditProfilePage />} />}></Route>
             <Route path='/room-details-book/:roomId' element={<ProtectedRoute element={<RoomDetailsPage />} />}></Route>
+            <Route path='/find-booking' element={<ProtectedRoute element={<MyBookingsPage />} />}></Route>
 
             {/* Admin Routes */}
 
