@@ -77,7 +77,7 @@ const ManageRoomsPage = () => {
                             </option>
                         ))}
                     </select>
-                    <button className='add-room-button' onClick={() => navigate('/admin/add-room')}>
+                    <button className="update-button" onClick={() => navigate('/admin/add-room')}>
                         Add Room
                     </button>
                 </div>

@@ -14,6 +14,9 @@
     transition: background-color 0.3s, box-shadow 0.3s;
 
 }
+.form-group {
+    margin-top: 15px;
+}
 .room-photo-preview, .room-photo {
     width: 180px;
     aspect-ratio: 16 / 9;
