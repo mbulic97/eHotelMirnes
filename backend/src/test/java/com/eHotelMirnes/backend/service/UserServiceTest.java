@@ -73,8 +73,6 @@ public class UserServiceTest {
         user.setPassword("123456789");
 
         when(userRepository.existsByEmail(user.getEmail())).thenReturn(true);
-
-
         Response response = userService.register(user);
         assertEquals(400, response.getStatusCode());
         assertEquals("User with email " + user.getEmail() + " already exists", response.getMessage());
@@ -104,6 +102,20 @@ public class UserServiceTest {
         assertEquals(200, response.getStatusCode());
         assertEquals("Login successful", response.getMessage());
         assertEquals("fake-jwt-token", response.getToken());
+    }
+
+    @Test
+    @DisplayName("Should fail login when user does not exist")
+    void login_UserNotFound() {
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setEmail("mirnes@gmail.com");
+        loginRequest.setPassword("123456");
+        when(userRepository.findByEmail("mirnes@gmail.com"))
+                .thenReturn(Optional.empty());
+
+        Response response = userService.login(loginRequest);
+
+        assertEquals(404, response.getStatusCode());
     }
 
 
