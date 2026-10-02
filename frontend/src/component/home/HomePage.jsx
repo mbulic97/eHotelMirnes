@@ -12,12 +12,11 @@ const HomePage = () => {
     const [error, setError] = useState(null);
     const isUser = ApiService.isUser();
     const isAdmin = ApiService.isAdmin();
-    const [rooms, setRooms] = useState([]);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [roomType, setRoomType] = useState('');
     const [city, setCity] = useState('');
-
+    const [carouselRooms, setCarouselRooms] = useState([]);
     const showError = (message, timeout = 5000) => {
         setError(message);
         setTimeout(() => {
@@ -50,16 +49,23 @@ const HomePage = () => {
 
 
     useEffect(() => { //Room Carousel
-        const fetchRooms = async () => {
+        const fetchCarouselRooms  = async () => {
             try {
                 const response = await ApiService.getAllRooms();
-                setRooms(response.roomList);
+                
+                const allRooms = response.roomList || [];
+                
+                const shuffledRooms = [...allRooms].sort(() => Math.random() - 0.5);
+
+                const carouselRooms = shuffledRooms .slice(0,5);
+
+                setCarouselRooms(carouselRooms);
             } catch (error) {
                 console.error(error);
             }
         };
 
-        fetchRooms();
+        fetchCarouselRooms();
     }, []);
 
     const handleInternalSearch = async () => {
@@ -198,7 +204,7 @@ const HomePage = () => {
 
             <h4>  <a className="view-rooms-home" href="/rooms">All Rooms</a></h4>
             <h2>Looking for the perfect stay?</h2>
-            <div className="room-carousel"><RoomCarousel rooms={rooms} /></div>
+            <div className="room-carousel"><RoomCarousel rooms={carouselRooms} /></div>
 
             <h2 className="home-services">Services at <span className="eHotelMirnes-color">eHotelMirnes</span></h2>
             <h2>Weather</h2>
