@@ -14,7 +14,7 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedMethods("GET","POST", "PUT","DELETE")
-                        .allowedOrigins("http://localhost:3000");
+                        .allowedOrigins("http://localhost:3000","https://e-hotel-mirnes.vercel.app");
             }
         };
     }
