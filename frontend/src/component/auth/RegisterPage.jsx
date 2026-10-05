@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './RegisterPage.css'
 function RegisterPage() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         name: '',
@@ -35,6 +36,9 @@ function RegisterPage() {
             setTimeout(() => setErrorMessage(''), 5000);
             return;
         }
+
+        setLoading(true);
+
         try {
 
             const response = await ApiService.registerUser(formData);
@@ -51,20 +55,21 @@ function RegisterPage() {
                 setSuccessMessage('User registered successfully');
                 setTimeout(() => {
                     setSuccessMessage('');
-                    navigate('/');
+                    navigate('/login');
                 }, 3000);
             }
         }
         catch (error) {
             setErrorMessage(error.response?.data?.message || error.message);
             setTimeout(() => setErrorMessage(''), 5000);
+        } finally {
+        setLoading(false);
         }
     };
 
     return (
         <div className="auth-container">
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            {successMessage && <p className="success-message">{successMessage}</p>}
+            
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -83,7 +88,14 @@ function RegisterPage() {
                     <label>Password:</label>
                     <input type="password" name="password" value={formData.password} onChange={handleInputChange} required />
                 </div>
-                <button type="submit">Register</button>
+                <button 
+                type="submit"
+                style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
+                disabled={loading}>
+                    {loading ? 'Registering...' : 'Register'}
+                </button>
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
+                {successMessage && <p className="success-message">{successMessage}</p>}
             </form>
 
         </div>

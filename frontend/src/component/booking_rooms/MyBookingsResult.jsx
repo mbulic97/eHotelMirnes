@@ -28,7 +28,7 @@ const MyBookingsResult = ({ bookings, onDeleteBooking }) => {
                                 <p>
                                     Room Type: {booking.room.roomType}
                                 </p>
-                                <img className='room-list-item-image' src={booking.room.roomPhotoUrl}></img>
+                                <img className='room-list-item-image' src={booking.room.roomPhotoUrl} alt={booking.room.roomType}></img>
 
                             </div>
 

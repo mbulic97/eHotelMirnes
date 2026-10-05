@@ -52,6 +52,8 @@ const MyBookingsPage = () => {
   return (
     <div>
       <h2>My Booking History</h2>
+      {error && <p className="error-message">{error}</p>}
+
       <MyBookingsResult
         bookings={currentBookings}
         onDeleteBooking={handleDeleteBooking}

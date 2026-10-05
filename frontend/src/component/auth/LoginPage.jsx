@@ -10,6 +10,7 @@ function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const from = location.state?.from?.pathname || '/home';
+    const [loading, setLoading] = useState(false);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,6 +20,7 @@ function LoginPage() {
             setTimeout(() => setError(''), 5000);
             return;
         }
+        setLoading(true);
 
         try {
             const response = await ApiService.loginUser({ email, password });
@@ -32,13 +34,14 @@ function LoginPage() {
             
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
+        } finally {
+        setLoading(false);
         }
 
     };
     return (
         <div className="auth-container">
             <h2>Login</h2>
-            {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Email: </label>
@@ -58,11 +61,17 @@ function LoginPage() {
                         required
                     />
                 </div>
-                <button type="submit">Login</button>
+                <button 
+                type="submit"
+                style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
+                disabled={loading}>
+                    {loading ? 'Logging in...' : 'Login'}</button>
             </form>
             <p className="register-link">
                 Don't have an account? <a href="/register">Register here</a>
             </p>
+            {error && <p className="error-message">{error}</p>}
+
         </div>
     )
 }

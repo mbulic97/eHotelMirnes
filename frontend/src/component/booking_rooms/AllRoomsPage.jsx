@@ -6,7 +6,7 @@ import RoomSearch from '../common/RoomSearch';
 import { useSearchParams } from 'react-router-dom';
 
 const AllRoomsPage = () => {
-    const [rooms, setRooms] = useState([]);
+    //const [rooms, setRooms] = useState([]);
     const [filteredRooms, setFilteredRooms] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [roomsPerPage] = useState(5);
@@ -46,7 +46,7 @@ const AllRoomsPage = () => {
 
                 const allRooms = response.roomList;
                 //const allRooms = response?.roomList || [];
-                setRooms(allRooms);
+                //setRooms(allRooms);
                 setFilteredRooms(allRooms);
             } catch (error) {
                 console.error("ERROR:", error);

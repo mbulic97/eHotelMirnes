@@ -57,7 +57,7 @@ const HomePage = () => {
                 
                 const shuffledRooms = [...allRooms].sort(() => Math.random() - 0.5);
 
-                const carouselRooms = shuffledRooms .slice(0,5);
+                const carouselRooms = shuffledRooms.slice(0,5);
 
                 setCarouselRooms(carouselRooms);
             } catch (error) {
@@ -202,11 +202,11 @@ const HomePage = () => {
                 </header>
             </section>
 
-            <h4>  <a className="view-rooms-home" href="/rooms">All Rooms</a></h4>
+            <h4>  <a className="view-rooms-home" href="/rooms">View All Rooms</a></h4>
             <h2>Looking for the perfect stay?</h2>
             <div className="room-carousel"><RoomCarousel rooms={carouselRooms} /></div>
 
-            <h2 className="home-services">Services at <span className="eHotelMirnes-color">eHotelMirnes</span></h2>
+            <h2 className="home-services">Current Weather in <span className="eHotelMirnes-color">Sarajevo</span></h2>
             <h2>Weather</h2>
             {error && <p className="error-message">{error}</p>}
             {weather && (
