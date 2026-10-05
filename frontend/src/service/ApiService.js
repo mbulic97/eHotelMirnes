@@ -1,9 +1,15 @@
 import axios from "axios"
 
 export default class ApiService {
+    // Local
+    //static BASE_URL = "http://localhost:8080"
 
-    static BASE_URL = "http://localhost:8080"
-
+    // Production
+    //static BASE_URL = "https://ehotelmirnes-production.up.railway.app"
+    static BASE_URL = window.location.hostname === "localhost"
+        ? "http://localhost:8080"
+        : "https://ehotelmirnes-production.up.railway.app";
+    
     static getHeader() {
         const token = localStorage.getItem("token");
         console.log("Token exists:", !!token);
