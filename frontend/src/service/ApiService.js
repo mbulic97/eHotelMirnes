@@ -12,7 +12,7 @@ export default class ApiService {
     
     static getHeader() {
         const token = localStorage.getItem("token");
-        console.log("Token exists:", !!token);
+        //console.log("Token exists:", !!token);
 
         return {
             Authorization: `Bearer ${token}`,

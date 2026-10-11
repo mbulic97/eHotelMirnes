@@ -39,7 +39,7 @@ const AddRoomPage = () => {
                 const types = await ApiService.getRoomTypes();
                 setRoomTypes(types);
             } catch (error) {
-                console.error('Error fetching room types:', error.message);
+                setError(error.response?.data?.message || 'Failed to load room types.');
             }
         };
         fetchRoomTypes();

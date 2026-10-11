@@ -35,7 +35,7 @@ const RoomResult = ({ roomSearchResults }) => {
                                         className="book-now-button"
                                         onClick={() => navigate(`/room-details-book/${room.id}`)} //isUser Navigate to book room with room ID
                                     >
-                                        View/Book Now
+                                        View Details
                                     </button>
                                 )}
                             </div>

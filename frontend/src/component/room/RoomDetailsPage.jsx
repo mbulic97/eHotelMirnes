@@ -74,14 +74,8 @@ const RoomDetailsPage = () => {
       const startDate = new Date(checkInDate);
       const endDate = new Date(checkOutDate);
 
-      console.log("Original Check-in Date:", startDate);
-      console.log("Original Check-out Date:", endDate);
-
       const formattedCheckInDate = new Date(startDate.getTime() - (startDate.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
       const formattedCheckOutDate = new Date(endDate.getTime() - (endDate.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
-
-      console.log("Formated Check-in Date:", formattedCheckInDate);
-      console.log("Formated Check-out Date:", formattedCheckOutDate);
 
       const booking = {
         checkInDate: formattedCheckInDate,
@@ -89,9 +83,7 @@ const RoomDetailsPage = () => {
         numOfAdults: numAdults,
         numOfChildren: numChildren
       };
-      console.log(booking)
-      console.log(checkOutDate)
-
+      
       // Make booking
       const response = await ApiService.bookRoom(roomId, userId, booking);
       if (response.statusCode === 200) {
@@ -269,7 +261,7 @@ const RoomDetailsPage = () => {
                           </button>
                           {error && <p className="error-message">{error}</p>}
                           {showMessage && (
-                              <p className="booking-success-message">  
+                              <p className="success-message">  
                                 Booking successful! Your booking reference is {bookingReference}.                              </p>
                           )}
                           {errorMessage && (

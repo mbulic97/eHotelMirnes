@@ -6,7 +6,7 @@ import Navbar from './component/common/Navbar';
 import HomePage from './component/home/HomePage';
 import Footer from './component/common/Footer';
 import ProfilePage from './component/profile/ProfilePage';
-import AllRoomsPage from './component/booking_rooms/AllRoomsPage';
+import AllRoomsPage from './component/room/AllRoomsPage';
 import AdminPage from './component/admin/AdminPage';
 import ManageUsersPage from './component/admin/ManageUsersPage';
 import ManageRoomsPage from './component/admin/ManageRoomsPage';
@@ -15,8 +15,8 @@ import { ProtectedRoute } from './service/guard';
 import ManageBookingsPage from './component/admin/ManageBookingsPage';
 import EditRoomPage from './component/admin/EditRoomPage';
 import EditProfilePage from './component/profile/EditProfilePage';
-import RoomDetailsPage from './component/booking_rooms/RoomDetailsPage';
-import MyBookingsPage from './component/booking_rooms/MyBookingsPage';
+import RoomDetailsPage from './component/room/RoomDetailsPage';
+import MyBookingsPage from './component/booking/MyBookingsPage';
 function App() {
   return (
     <BrowserRouter>

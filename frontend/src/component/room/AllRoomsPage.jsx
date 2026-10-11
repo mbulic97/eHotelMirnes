@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import ApiService from '../../service/ApiService'
 import Pagination from '../common/Pagination';
-import RoomResult from '../common/RoomResult';
-import RoomSearch from '../common/RoomSearch';
+import RoomResult from './RoomResult';
+import RoomSearch from './RoomSearch';
 import { useSearchParams } from 'react-router-dom';
 
 const AllRoomsPage = () => {
-    //const [rooms, setRooms] = useState([]);
     const [filteredRooms, setFilteredRooms] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [roomsPerPage] = useState(5);
@@ -42,14 +41,9 @@ const AllRoomsPage = () => {
                     response = await ApiService.getAllRooms();
                 }
                 
-                console.log("ALL ROOMS:", response);
-
                 const allRooms = response.roomList;
-                //const allRooms = response?.roomList || [];
-                //setRooms(allRooms);
                 setFilteredRooms(allRooms);
             } catch (error) {
-                console.error("ERROR:", error);
                 setError(error.response?.data?.message || error.message);
 
             }

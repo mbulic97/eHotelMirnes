@@ -8,15 +8,15 @@ const ManageUsersPage = () => {
     const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [usersPerPage] = useState(5);
+    const [error, setError] = useState('');  
 
     useEffect(() => {
         const getUsers = async () => {
             try {
                 const response = await ApiService.getAllUsers();
-                console.log("GetAllUsers from MySQL:", response);
                 setUsers(response.userList);
             } catch (error) {
-                console.error("Error:", error);
+                setError(error.response?.data?.message || error.message);
             }
         };
 
@@ -37,7 +37,8 @@ const ManageUsersPage = () => {
             );
 
         } catch (error) {
-            console.error("Error deleting user:", error);
+            setError(error.response?.data?.message || error.message);
+
         }
     };
 
@@ -47,9 +48,19 @@ const ManageUsersPage = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+    if (error) {
+        return (
+            <div className="all-rooms">
+                <p className="error-message">{error}</p>
+            </div>
+        );
+    }
+
     return (
         <div>
             <h2>Manage Users</h2>
+            {error && <p className="error-message">{error}</p>}
+
             <UserResult 
                 users={currentUsers}
                 onDeleteUser={handleDeleteUser} 

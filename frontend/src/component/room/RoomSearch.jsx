@@ -2,7 +2,7 @@ import  {  useState } from 'react'
 import ApiService from '../../service/ApiService'
 import 'react-datepicker/dist/react-datepicker.css'
 import DatePicker from 'react-datepicker';
-import '../common/RoomSearch.css'
+import './RoomSearch.css'
 import { useSearchParams } from 'react-router-dom';
 
 const RoomSearch = ({ handleSearchResult }) => {
@@ -61,7 +61,6 @@ const RoomSearch = ({ handleSearchResult }) => {
             const formattedStartDate = startDate ? startDate.toISOString().split('T')[0] : null;
             const formattedEndDate = endDate ? endDate.toISOString().split('T')[0] : null;
             const response = await ApiService.getAvailableRooms(formattedStartDate,formattedEndDate,roomType,city);
-            console.log("filter rooms", response);
             if(response.statusCode === 200){
                 handleSearchResult(response.roomList);
 

@@ -8,16 +8,16 @@ const ManageBookingsPage = () => {
     const [bookings, setBookings] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [bookingsPerPage] = useState(5);
-
+    const [error, setError] = useState('');  
+    
     useEffect(() => {
         const getBookings = async () => {
             try{
                 const response = await ApiService.getAllBookings();
-                console.log("ALL BOOKINGS:", response);
                 setBookings(response.bookingList);
 
             } catch (error) {
-                console.error('Error fetching bookings:', error.message);
+                setError(error.response?.data?.message || error.message);
             }
         };
         getBookings();
@@ -36,7 +36,7 @@ const ManageBookingsPage = () => {
                 prevBookings.filter(booking => booking.id !== bookingId)
             );
         } catch (error) {
-            console.error("Error deleting booking:", error);
+            setError(error.response?.data?.message || error.message);
         }
     };
 
@@ -48,6 +48,8 @@ const ManageBookingsPage = () => {
   return (
     <div>
       <h2>Manage Bookings</h2>
+      {error && <p className="error-message">{error}</p>}
+
       <BookingResult 
         bookings={currentBookings}
         onDeleteBooking={handleDeleteBooking}

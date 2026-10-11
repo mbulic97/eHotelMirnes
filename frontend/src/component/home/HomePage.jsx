@@ -37,7 +37,6 @@ const HomePage = () => {
 
                 setWeather(data);
             } catch (error) {
-                //console.error("Error fetching weather:", error);
                 setError(error.message);
 
             };
@@ -61,7 +60,7 @@ const HomePage = () => {
 
                 setCarouselRooms(carouselRooms);
             } catch (error) {
-                console.error(error);
+                setError(error.response?.data?.message || error.message);
             }
         };
 
@@ -204,11 +203,12 @@ const HomePage = () => {
 
             <h4>  <a className="view-rooms-home" href="/rooms">View All Rooms</a></h4>
             <h2>Looking for the perfect stay?</h2>
+            {error && <p className="error-message">{error}</p>}
+
             <div className="room-carousel"><RoomCarousel rooms={carouselRooms} /></div>
 
             <h2 className="home-services">Current Weather in <span className="eHotelMirnes-color">Sarajevo</span></h2>
             <h2>Weather</h2>
-            {error && <p className="error-message">{error}</p>}
             {weather && (
 
                 <div>

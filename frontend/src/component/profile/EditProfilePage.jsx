@@ -17,7 +17,6 @@ const EditProfilePage = () => {
         const fetchUserDetails = async () => {
             try {
                 const response = await ApiService.getUserProfile(userId);
-                console.log(response);
                 setUserDetails({
                     email: response.user.email,
                     name: response.user.name,

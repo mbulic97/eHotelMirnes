@@ -16,7 +16,6 @@ const MyBookingsPage = () => {
             try {
                 const response = await ApiService.getUserProfile();
                 const userPlusBookings = await ApiService.getUserBookings(response.user.id);
-                console.log(userPlusBookings);
                 setBookings(userPlusBookings.user.bookings);
             } catch (error) {
                 setError(error.response?.data?.message || error.message);
@@ -45,7 +44,8 @@ const MyBookingsPage = () => {
                     prevBookings.filter(booking => booking.id !== bookingId)
                 );
             } catch (error) {
-                console.error("Error deleting booking:", error);
+                setError(error.response?.data?.message || error.message);
+
             }
         };
 

@@ -20,22 +20,22 @@ const RoomCarousel = ({ rooms }) => {
                     <h3>{room.roomType}</h3>
                     <p>Price: ${room.roomPrice}/night</p>
                     <div className='book-now-div'>
-                                {isAdmin ? (
-                                    <button
-                                        className="edit-room-button"
-                                        onClick={() => navigate(`/admin/edit-room/${room.id}`)} //isAdmin Navigate to edit room with room ID
-                                    >
-                                        Edit Room
-                                    </button>
-                                ) : (
-                                    <button
-                                        className="book-now-button"
-                                        onClick={() => navigate(`/room-details-book/${room.id}`)} //isUser Navigate to book room with room ID
-                                    >
-                                        View/Book Now
-                                    </button>
-                                )}
-                            </div>
+                        {isAdmin ? (
+                            <button
+                                className="edit-room-button"
+                                onClick={() => navigate(`/admin/edit-room/${room.id}`)} //isAdmin Navigate to edit room with room ID
+                            >
+                                Edit Room
+                            </button>
+                        ) : (
+                            <button
+                                className="book-now-button"
+                                onClick={() => navigate(`/room-details-book/${room.id}`)} //isUser Navigate to book room with room ID
+                            >
+                                View Details
+                            </button>
+                        )}
+                    </div>
                 </div>
             ))}
         </div>

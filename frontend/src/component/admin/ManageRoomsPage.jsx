@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ApiService from '../../service/ApiService';
 import {  useNavigate } from 'react-router-dom';
-import RoomResult from '../common/RoomResult';
+import RoomResult from '../room/RoomResult';
 import Pagination from '../common/Pagination';
 
 const ManageRoomsPage = () => {
@@ -12,19 +12,20 @@ const ManageRoomsPage = () => {
     const [selectedRoomType, setSelectedRoomType] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [roomsPerPage] = useState(5);
-
+    const [error, setError] = useState('');  
+    
     useEffect(() => {
         const fetchRooms = async () => {
             try {
                 const response = await ApiService.getAllRooms();
 
-                console.log("ALL ROOMS:", response);
 
                 const allRooms = response.roomList;
                 setRooms(allRooms);
                 setFilteredRooms(allRooms);
             } catch (error) {
-                console.error("ERROR:", error);
+                setError(error.response?.data?.message || error.message);
+
             }
         };
         const fetchRoomTypes = async () => {
@@ -32,7 +33,8 @@ const ManageRoomsPage = () => {
                 const types = await ApiService.getRoomTypes();
                 setRoomTypes(types);
             } catch (error) {
-                console.error('Error fetching room types:', error.message);
+                setError(error.response?.data?.message || error.message);
+
             }
         };
         fetchRooms();
@@ -62,6 +64,14 @@ const ManageRoomsPage = () => {
 
     // Change page
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+    if (error) {
+        return (
+            <div className="all-rooms">
+                <p className="error-message">{error}</p>
+            </div>
+        );
+    }
 
     return (
         <div className='all-rooms'>

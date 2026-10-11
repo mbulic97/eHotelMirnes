@@ -15,7 +15,7 @@ const BookingResult = ({ bookings, onDeleteBooking }) => {
                                 <h3>{booking.room.roomDescription}</h3>
 
                                 <p>Booking ID: {booking.id}</p>
-                                <p>booking reference: {booking.bookingReference}</p>
+                                <p>Booking reference: {booking.bookingReference}</p>
                                 <p>Check-in:: {booking.checkInDate}</p>
                                 <p>Check-out: {booking.checkOutDate}</p>
 
